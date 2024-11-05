@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page de Notícias</title>
+    <style>
+        body {
+            font-family: Avenir, Arial;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            width: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .news-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 2px 0;
+        }
+        .news-article {
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 5px;
+            padding: 2px;
+            width: 100%;
+            box-sizing: border-box;
+flex-wrap: wrap;
+        }
+        .news-article1 {
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 5px;
+            padding: 2px;
+            width: 48%;
+            height: fit-content;
+            box-sizing: border-box;
+            flex-wrap: wrap;
+        }
+        .news-article img {
+            max-width: 100%;
+            height: auto;
+        }
+        .news-article h2 {
+            margin: 5px 0;
+        }
+        .news-article p {
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="news-section">
+            <article class="news-article">
+                <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3898_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"smartphones","geo":"BR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=BR&q=smartphones&hl=pt&date=today 12-m","guestPath":"https://trends.google.com.br:443/trends/embed/"}); </script>
+                </div> 
+        </section>
+        <div class="container"> 
+        <section class="news-section">
+            <article class="news-article1">
+            <div style="height: 400px; width: 100%;"><script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3898_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_TOPICS", {"comparisonItem":[{"keyword":"smartphones","geo":"BR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=BR&q=smartphones&hl=pt&date=today 12-m","guestPath":"https://trends.google.com.br:443/trends/embed/"});</script></div>
+            </article>
+            <article class="news-article1">
+            <div style="height: 400px; width: 100%;"><script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3898_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_QUERIES", {"comparisonItem":[{"keyword":"smartphones","geo":"BR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=BR&q=smartphones&hl=pt&date=today 12-m","guestPath":"https://trends.google.com.br:443/trends/embed/"}); </script></div>
+            </article>
+            
+        </section>
+    </div>
+    </div>
+</body>
+</html>
