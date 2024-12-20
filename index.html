@@ -1,78 +1,279 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page de Notícias</title>
+    <title>Gráficos e Tabela</title>
+    <!-- Adicionando Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Avenir, Arial;
-            margin: 0;
-            padding: 0;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center; /* Alinha horizontalmente */
+            
+            background-color: #f9f9f9; /* Fundo leve para contraste */
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            max-width: 1500px;
+            width: 100%;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            width: flex;
+            max-width: 2400px;
+            justify-content: center;
+        }
+        .half-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 300px;
+            max-width: 1200px;
+        }
+        table {
+            width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+        padding: 4px; /* Menor espaçamento */
+        text-align: center;
+        }
+        th {
             background-color: #f4f4f4;
         }
-        
-        .container {
-            width: 100%;
-            margin: auto;
-            overflow: hidden;
-        }
-        .news-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            margin: 2px 0;
-        }
-        .news-article {
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 5px;
-            padding: 2px;
-            width: 100%;
-            box-sizing: border-box;
-flex-wrap: wrap;
-        }
-        .news-article1 {
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 5px;
-            padding: 2px;
-            width: 48%;
-            height: fit-content;
-            box-sizing: border-box;
-            flex-wrap: flex;
-        }
-        .news-article img {
-            max-width: 100%;
-            height: auto;
-        }
-        .news-article h2 {
-            margin: 5px 0;
-        }
-        .news-article p {
-            color: #555;
-        }
-
     </style>
 </head>
-<body>
+<body> <div class="wrapper">
+    <!-- Gráfico de Linha -->
+    </div><div class="box">
+        <h4>Google trends - Last 12 months - Smartphone (Brazil)</h4>
+        <canvas id="graficoLinha" width="600" height="100"></canvas>
+    </div>
+
+    <!-- Gráfico de Barras Horizontais e Tabela -->
     <div class="container">
-        <section class="news-section">
-            <article class="news-article">
-                <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3898_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"smartphones","geo":"BR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=BR&q=smartphones&hl=pt&date=today 12-m","guestPath":"https://trends.google.com.br:443/trends/embed/"}); </script>
-                </div> 
-        </section>
-        <div class="container"> 
-        <section class="news-section">
-            <article class="news-article1">
-            <div style="height: 400px; width: 100%;"><script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3898_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_TOPICS", {"comparisonItem":[{"keyword":"smartphone","geo":"BR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=BR&q=smartphone&hl=pt&date=today 12-m","guestPath":"https://trends.google.com.br:443/trends/embed/"}); </script></div>
-            </article>
-            <article class="news-article1">
-            <div style="height: 400px; width: 100%;"><script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3898_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("RELATED_QUERIES", {"comparisonItem":[{"keyword":"smartphones","geo":"BR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=BR&q=smartphones&hl=pt&date=today 12-m","guestPath":"https://trends.google.com.br:443/trends/embed/"}); </script></div>
-            </article>
-            
-        </section>
+        <div class="half-box">
+            <h4>Related Searchs</h4>
+            <canvas id="graficoBarras" width="400" height="250"></canvas>
+        </div>
+        <div class="half-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sudden Increase-RISING</th>
+                        <th>Smartphones:(12/20/2023-12/20/2024-Brazil)</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaDados">
+                    <!-- Dados inseridos via JavaScript -->
+                </tbody>
+            </table>
+        </div>
     </div>
-    </div>
+</div>
+    <script>
+        // Dados para o gráfico de linhas
+        const dadosLinha = [
+
+        { Semana: "2023-12-17", Valor: 81 },
+{ Semana: "2023-12-24", Valor: 81 },
+{ Semana: "2023-12-31", Valor: 86 },
+{ Semana: "2024-1-7", Valor: 84 },
+{ Semana: "2024-1-14", Valor: 82 },
+{ Semana: "2024-1-21", Valor: 75 },
+{ Semana: "2024-1-28", Valor: 77 },
+{ Semana: "2024-2-4", Valor: 76 },
+{ Semana: "2024-2-11", Valor: 71 },
+{ Semana: "2024-2-18", Valor: 65 },
+{ Semana: "2024-2-25", Valor: 69 },
+{ Semana: "2024-3-3", Valor: 72 },
+{ Semana: "2024-3-10", Valor: 72 },
+{ Semana: "2024-3-17", Valor: 67 },
+{ Semana: "2024-3-24", Valor: 71 },
+{ Semana: "2024-3-31", Valor: 73 },
+{ Semana: "2024-4-7", Valor: 75 },
+{ Semana: "2024-4-14", Valor: 73 },
+{ Semana: "2024-4-21", Valor: 69 },
+{ Semana: "2024-4-28", Valor: 72 },
+{ Semana: "2024-5-5", Valor: 73 },
+{ Semana: "2024-5-12", Valor: 70 },
+{ Semana: "2024-5-19", Valor: 68 },
+{ Semana: "2024-5-26", Valor: 67 },
+{ Semana: "2024-6-2", Valor: 67 },
+{ Semana: "2024-6-9", Valor: 72 },
+{ Semana: "2024-6-16", Valor: 63 },
+{ Semana: "2024-6-23", Valor: 63 },
+{ Semana: "2024-6-30", Valor: 64 },
+{ Semana: "2024-7-7", Valor: 68 },
+{ Semana: "2024-7-14", Valor: 70 },
+{ Semana: "2024-7-21", Valor: 74 },
+{ Semana: "2024-7-28", Valor: 63 },
+{ Semana: "2024-8-4", Valor: 65 },
+{ Semana: "2024-8-11", Valor: 66 },
+{ Semana: "2024-8-18", Valor: 61 },
+{ Semana: "2024-8-25", Valor: 62 },
+{ Semana: "2024-9-1", Valor: 60 },
+{ Semana: "2024-9-8", Valor: 68 },
+{ Semana: "2024-9-15", Valor: 60 },
+{ Semana: "2024-9-22", Valor: 65 },
+{ Semana: "2024-9-29", Valor: 63 },
+{ Semana: "2024-10-6", Valor: 62 },
+{ Semana: "2024-10-13", Valor: 69 },
+{ Semana: "2024-10-20", Valor: 64 },
+{ Semana: "2024-10-27", Valor: 71 },
+{ Semana: "2024-11-3", Valor: 74 },
+{ Semana: "2024-11-10", Valor: 73 },
+{ Semana: "2024-11-17", Valor: 80 },
+{ Semana: "2024-11-24", Valor: 100 },
+{ Semana: "2024-12-1", Valor: 80 },
+{ Semana: "2024-12-8", Valor: 77 },
+{ Semana: "2024-12-15", Valor: 73 }
+       
+
+        ];
+
+        // Dados para o gráfico de barras horizontais
+        const dadosBarras = [
+{ Categoria: "Samsung Electronics", Quantidade: 22 },
+{ Categoria: "Samsung", Quantidade: 21 },
+{ Categoria: "Telefone celular", Quantidade: 19 },
+{ Categoria: "Motorola", Quantidade: 13 },
+{ Categoria: "5G", Quantidade: 13 },
+{ Categoria: "Xiaomi", Quantidade: 12 },
+{ Categoria: "Samsung Galaxy", Quantidade: 10 },
+{ Categoria: "256 GB", Quantidade: 10 },
+{ Categoria: "Memória de acesso aleatório", Quantidade: 8 },
+{ Categoria: "0 TB de armazenamento", Quantidade: 7 },
+{ Categoria: "Câmera", Quantidade: 5 },
+{ Categoria: "8 GB", Quantidade: 4 },
+{ Categoria: "Xiaomi Redmi Note", Quantidade: 4 },
+{ Categoria: "Motorola moto", Quantidade: 4 },
+{ Categoria: "Samsung Galaxy S23", Quantidade: 3 },
+{ Categoria: "cheap", Quantidade: 2 },
+{ Categoria: "Android", Quantidade: 2 },
+{ Categoria: "Motorola Edge (2020)", Quantidade: 2 },
+{ Categoria: "Smartphone Galaxy A15 Samsung", Quantidade: 2 },
+{ Categoria: "Xiaomi POCO", Quantidade: 2 },
+{ Categoria: "Dual SIM", Quantidade: 2 },
+{ Categoria: "Realme", Quantidade: 2 },
+{ Categoria: "Moto G54 5G", Quantidade: 1 },
+{ Categoria: "Samsung Galaxy A5", Quantidade: 1 }
+
+
+
+        ];
+
+        // Dados para a tabela
+        const dadosTabela = [
+        { Categoria: "8 GB", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Galaxy A15 Samsung", Quantidade: "Sudden Increase" },
+{ Categoria: "Samsung Galaxy A5", Quantidade: "Sudden Increase" },
+{ Categoria: "Samsung Galaxy S24", Quantidade: "Sudden Increase" },
+{ Categoria: "4 GB", Quantidade: "Sudden Increase" },
+{ Categoria: "12 GB", Quantidade: "Sudden Increase" },
+{ Categoria: "Xiaomi Redmi Note 13 Pro 5G", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Motorola Moto G34 5G 128GB", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Motorola Moto G24 128GB", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Samsung Galaxy S24 Ultra", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Motorola Moto G04s 128GB", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Xiaomi Poco X6 5G 256GB", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Samsung Galaxy A05s 128GB", Quantidade: "Sudden Increase" },
+{ Categoria: "6 GB", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Samsung Galaxy A25 5G 256GB", Quantidade: "Sudden Increase" },
+{ Categoria: "Samsung Galaxy S24", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Motorola Edge 50 Pro 5G", Quantidade: "Sudden Increase" },
+{ Categoria: "Poco C65 Ram Xiaomi", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Xiaomi Redmi Note 13", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Xiaomi Redmi Note 13", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Samsung Galaxy S23 FE 128GB 5G", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Motorola Edge 40 Neo 5G 256GB", Quantidade: "Sudden Increase" },
+{ Categoria: "Smartphone Samsung Galaxy S24 Ultra", Quantidade: "Sudden Increase" }
+
+        ];
+
+        // Gráfico de Linhas
+        const ctxLinha = document.getElementById('graficoLinha').getContext('2d');
+        new Chart(ctxLinha, {
+            type: 'line',
+            data: {
+                labels: dadosLinha.map(d => d.Semana),
+                datasets: [{
+                    label: 'Smartphone (Brasil)',
+                    data: dadosLinha.map(d => d.Valor),
+                    borderColor: 'rgb(255, 0, 0)',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Semana' } },
+                    y: { title: { display: true, text: 'Valor' } },
+                
+                }
+            }
+        });
+
+        // Gráfico de Barras Horizontais
+        const ctxBarras = document.getElementById('graficoBarras').getContext('2d');
+        new Chart(ctxBarras, {
+            type: 'bar',
+            data: {
+                labels: dadosBarras.map(d => d.Categoria),
+                datasets: [{
+                    label: 'smartphone:(12/20/2023 – 12/20/2024-Brazil)',
+                    data: dadosBarras.map(d => d.Quantidade),
+                    backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                    borderColor: 'rgb(255, 0, 0)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                indexAxis: 'y', // Barras horizontais
+                scales: {
+                    x: { title: { display: true, text: 'QTY' } },
+                    y: { title: { display: true, text: 'TOP' } }
+                }
+            }
+        });
+
+        // Preenchendo a Tabela
+        const tabela = document.getElementById('tabelaDados');
+        dadosTabela.forEach(dado => {
+            const row = `<tr>
+                <td>${dado.Categoria}</td>
+                <td>${dado.Quantidade}</td>
+            </tr>`;
+            tabela.innerHTML += row;
+        });
+    </script>
+    <a href="https://trends.google.com.br/trends/explore?geo=BR&q=smartphone&hl=pt">Source:Google Trends</a>
 </body>
 </html>
+
+
