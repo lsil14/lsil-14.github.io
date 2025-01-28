@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gráficos Google Trends</title>
+    <link href="https://fonts.googleapis.com/css2?family=Avenir&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Avenir', sans-serif;
@@ -11,8 +12,7 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            height: 100vh;
         }
         .full-width {
             width: 100%;
@@ -21,29 +21,52 @@
         .half-width {
             width: 50%;
             height: 50vh;
-        }
-        .container {
-            display: flex;
+            display: inline-block;
         }
     </style>
-    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3975_RC01/embed_loader.js"></script>
 </head>
 <body>
-
-    <div id="chart1" class="full-width"></div>
-    <div class="container">
-        <div id="chart2" class="half-width"></div>
-        <div id="chart3" class="half-width"></div>
+    <div class="full-width">
+        <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3975_RC01/embed_loader.js"></script>
+        <script type="text/javascript">
+            trends.embed.renderExploreWidget("TIMESERIES", {
+                "comparisonItem":[{"keyword":"smartphone","geo":"BR","time":"today 12-m"}],
+                "category":0,
+                "property":""
+            }, {
+                "exploreQuery":"geo=BR&q=smartphone&hl=pt&date=today 12-m",
+                "guestPath":"https://trends.google.com.br:443/trends/embed/"
+            });
+        </script>
     </div>
-
-    <script type="text/javascript">
-        trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"smartphone","geo":"BR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=BR&q=smartphone&hl=pt&date=today 12-m","guestPath":"https://trends.google.com.br:443/trends/embed/"}, document.getElementById("chart1"));
-
-        trends.embed.renderExploreWidget("RELATED_TOPICS", {"comparisonItem":[{"keyword":"smartphone","geo":"BR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=BR&q=smartphone&hl=pt&date=today 12-m","guestPath":"https://trends.google.com.br:443/trends/embed/"}, document.getElementById("chart2"));
-
-        trends.embed.renderExploreWidget("RELATED_QUERIES", {"comparisonItem":[{"keyword":"smartphone","geo":"BR","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"geo=BR&q=smartphone&hl=pt&date=today 12-m","guestPath":"https://trends.google.com.br:443/trends/embed/"}, document.getElementById("chart3"));
-    </script>
-
+    <div>
+        <div class="half-width">
+            <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3975_RC01/embed_loader.js"></script>
+            <script type="text/javascript">
+                trends.embed.renderExploreWidget("RELATED_TOPICS", {
+                    "comparisonItem":[{"keyword":"smartphone","geo":"BR","time":"today 12-m"}],
+                    "category":0,
+                    "property":""
+                }, {
+                    "exploreQuery":"geo=BR&q=smartphone&hl=pt&date=today 12-m",
+                    "guestPath":"https://trends.google.com.br:443/trends/embed/"
+                });
+            </script>
+        </div>
+        <div class="half-width">
+            <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3975_RC01/embed_loader.js"></script>
+            <script type="text/javascript">
+                trends.embed.renderExploreWidget("RELATED_QUERIES", {
+                    "comparisonItem":[{"keyword":"smartphone","geo":"BR","time":"today 12-m"}],
+                    "category":0,
+                    "property":""
+                }, {
+                    "exploreQuery":"geo=BR&q=smartphone&hl=pt&date=today 12-m",
+                    "guestPath":"https://trends.google.com.br:443/trends/embed/"
+                });
+            </script>
+        </div>
+    </div>
 </body>
 </html>
 
