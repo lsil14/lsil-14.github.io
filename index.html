@@ -272,6 +272,15 @@
             tabela.innerHTML += row;
         });
     </script>
+    <div id="trends-widget" style="width:100%;height:400px;"></div>
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3975_RC01/embed_loader.js"></script>
+<script type="text/javascript">
+  trends.embed.renderExploreWidget(
+    "RELATED_TOPICS",
+    {"comparisonItem":[{"keyword":"smartphone","geo":"BR","time":"today 12-m"}],"category":0,"property":""},
+    {"exploreQuery":"geo=BR&q=smartphone&hl=pt&date=today 12-m","guestPath":"https://trends.google.com.br:443/trends/embed/"}
+  );
+</script>
     <a href="https://trends.google.com.br/trends/explore?geo=BR&q=smartphone&hl=pt">Source:Google Trends</a>
 </body>
 </html>
