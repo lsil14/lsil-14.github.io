@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recursos Recomendados</title>
+  <title>Recursos Recomendados com Google Trends</title>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -20,6 +20,7 @@
       line-height: 1.6;
       padding: 20px;
       min-height: 100vh;
+      position: relative;
     }
     
     .container {
@@ -93,6 +94,29 @@
     .stat-box:hover {
       background: rgba(255, 255, 255, 0.25);
       transform: translateY(-3px);
+    }
+    
+    /* Botão para abrir o pop-up */
+    .trends-button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px auto 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+    
+    .trends-button:hover {
+      background: #2980b9;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
     }
     
     /* Espaço para novos elementos */
@@ -272,6 +296,85 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
     
+    /* Pop-up styles */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .popup-content {
+      background: white;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 900px;
+      max-height: 85vh;
+      overflow: hidden;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    
+    .popup-overlay.active .popup-content {
+      transform: scale(1);
+    }
+    
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: #3498db;
+      color: white;
+    }
+    
+    .popup-header h2 {
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .close-btn:hover {
+      transform: rotate(90deg);
+    }
+    
+    .popup-body {
+      height: 70vh;
+      padding: 0;
+      overflow: hidden;
+    }
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
     /* Responsividade */
     @media (max-width: 992px) {
       .links-container {
@@ -280,6 +383,10 @@
       
       .additional-section {
         grid-template-columns: 1fr;
+      }
+      
+      .popup-content {
+        width: 95%;
       }
     }
     
@@ -299,6 +406,10 @@
       
       header {
         padding: 30px 15px;
+      }
+      
+      .popup-header h2 {
+        font-size: 1.1rem;
       }
     }
   </style>
@@ -323,6 +434,11 @@
           <span>Imagens dinâmicas</span>
         </div>
       </div>
+      
+      <button class="trends-button" id="openTrends">
+        <i class="fab fa-google"></i>
+        Ver Tendências de Pesquisa
+      </button>
     </header>
     
     <!-- Seção para elementos adicionais -->
@@ -350,6 +466,19 @@
     <footer>
       <p>Esta página é atualizada automaticamente a cada 5 minutos | Desenvolvido com <i class="fas fa-heart" style="color: #e74c3c;"></i> para você</p>
     </footer>
+  </div>
+  
+  <!-- Pop-up para o Google Trends -->
+  <div class="popup-overlay" id="trendsPopup">
+    <div class="popup-content">
+      <div class="popup-header">
+        <h2><i class="fab fa-google"></i> Google Trends - Smartphones no Brasil</h2>
+        <button class="close-btn" id="closePopup">&times;</button>
+      </div>
+      <div class="popup-body">
+        <iframe src="https://trends.google.com.br/trends/embed/explore/TIMESERIES?req=%7B%22comparisonItem%22%3A%5B%7B%22keyword%22%3A%22smartphone%22%2C%22geo%22%3A%22BR%22%2C%22time%22%3A%22today%2012-m%22%7D%5D%2C%22category%22%3A0%2C%22property%22%3A%22%22%7D&tz=-180&eq=geo%3DBR%26q%3Dsmartphone"></iframe>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -488,8 +617,35 @@
       }
     }
 
+    // Pop-up functions
+    function setupPopup() {
+      const popup = document.getElementById('trendsPopup');
+      const openBtn = document.getElementById('openTrends');
+      const closeBtn = document.getElementById('closePopup');
+      
+      openBtn.addEventListener('click', () => {
+        popup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+      
+      closeBtn.addEventListener('click', () => {
+        popup.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+      
+      popup.addEventListener('click', (e) => {
+        if (e.target === popup) {
+          popup.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+    }
+
     // Carregar dados ao iniciar
-    window.addEventListener('DOMContentLoaded', loadData);
+    window.addEventListener('DOMContentLoaded', () => {
+      loadData();
+      setupPopup();
+    });
     
     // Atualizar a cada 5 minutos
     setInterval(loadData, 5 * 60 * 1000);
