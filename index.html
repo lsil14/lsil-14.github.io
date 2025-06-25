@@ -431,14 +431,14 @@
         loadingIndicator.innerHTML = '<i class="fas fa-spinner"></i><p>Obtendo imagens...</p>';
         container.appendChild(loadingIndicator);
         
-        // Limitar para 9 recursos para demonstração (remova em produção)
-        //const demoData = results.data.slice(0, 9);
+        // Limitar para 20 recursos para demonstração (remova em produção)
+        const demoData = results.data.slice(0, 20);
         
-        //for (const row of demoData) {
-         // if (row.Título && row.Link) {
-           // const titulo = safeText(row.Título);
-            //const link = safeText(row.Link);
-            //const displayUrl = formatUrl(link);
+        for (const row of demoData) {
+          if (row.Título && row.Link) {
+            const titulo = safeText(row.Título);
+            const link = safeText(row.Link);
+            const displayUrl = formatUrl(link);
             
             // Buscar imagem para este link
             let imageUrl = row.Imagem || await fetchLinkImage(link);
