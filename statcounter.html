@@ -14,126 +14,106 @@
     
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      background: #f8fafc;
       color: #333;
       line-height: 1.6;
-      padding: 20px;
+      padding: 15px;
       min-height: 100vh;
     }
     
     .container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 0 10px;
     }
     
-    /* Header harmonizado */
+    /* Header simplificado */
     header {
       text-align: center;
-      margin-bottom: 30px;
-      padding: 40px 20px;
-      border-radius: 15px;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-    
-    .header-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      margin: 0 auto;
+      margin-bottom: 20px;
+      padding: 30px 20px;
+      background: #2c3e50;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     }
     
     h1 {
-      font-size: 2.8rem;
-      margin-bottom: 15px;
+      font-size: 2.3rem;
+      margin-bottom: 10px;
       color: white;
       font-weight: 600;
-      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
     }
     
     .subtitle {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       color: rgba(255, 255, 255, 0.85);
       max-width: 700px;
-      margin: 0 auto 25px;
-      font-weight: 300;
+      margin: 0 auto;
     }
     
-    /* Seção de estatísticas */
+    /* Seção de gráficos otimizada */
     .stats-section {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 30px;
-      margin-bottom: 40px;
+      gap: 25px;
+      margin-bottom: 30px;
     }
     
     .chart-container {
       background: white;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-      position: relative;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
       overflow: hidden;
     }
     
     .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
       padding-bottom: 15px;
       border-bottom: 1px solid #eee;
     }
     
     .chart-title {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       color: #2c3e50;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     
     .chart-icon {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       color: #3498db;
     }
     
-    /* Contêiner de gráficos ajustado */
     .chart-content {
       width: 100%;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .chart-wrapper {
-      width: 100%;
       overflow: auto;
-      padding: 10px;
-      background: #f9f9f9;
+      padding: 10px 0;
+      background: #f9fafb;
       border-radius: 8px;
-      border: 1px solid #eee;
+      margin-bottom: 10px;
     }
     
-    .chart-container p {
-      margin-top: 20px;
+    .source-link {
+      display: block;
       text-align: center;
+      font-size: 0.85rem;
       color: #7f8c8d;
-      font-size: 0.95rem;
+      margin-top: 8px;
     }
     
-    .chart-container a {
+    .source-link a {
       color: #3498db;
       text-decoration: none;
-      transition: color 0.3s;
-      font-weight: 500;
+      transition: all 0.3s;
     }
     
-    .chart-container a:hover {
+    .source-link a:hover {
       color: #2980b9;
       text-decoration: underline;
     }
@@ -141,26 +121,47 @@
     .two-columns {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
+      gap: 25px;
+    }
+    
+    /* Gráficos com tamanhos fixos otimizados */
+    #mobile_vendor-BR-monthly-202405-202505 {
+      width: 1000px;
+      height: 350px;
+    }
+    
+    #desktop+mobile+tablet-comparison-BR-monthly-202405-202505 {
+      width: 550px;
+      height: 350px;
+    }
+    
+    #mobile+tablet-android_version-BR-monthly-202405-202505 {
+      width: 550px;
+      height: 350px;
     }
     
     footer {
       text-align: center;
-      padding: 25px;
+      padding: 15px;
       color: #7f8c8d;
-      font-size: 1rem;
-      border-top: 1px solid #eee;
+      font-size: 0.9rem;
       margin-top: 20px;
       background: white;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
     
     /* Responsividade */
-    @media (max-width: 1100px) {
-      .chart-wrapper {
-        transform: scale(0.9);
-        transform-origin: top left;
+    @media (max-width: 1200px) {
+      #mobile_vendor-BR-monthly-202405-202505 {
+        width: 900px;
+        height: 320px;
+      }
+      
+      #desktop+mobile+tablet-comparison-BR-monthly-202405-202505,
+      #mobile+tablet-android_version-BR-monthly-202405-202505 {
+        width: 500px;
+        height: 320px;
       }
     }
     
@@ -169,81 +170,107 @@
         grid-template-columns: 1fr;
       }
       
-      .chart-container {
-        padding: 25px 20px;
+      #mobile_vendor-BR-monthly-202405-202505 {
+        width: 800px;
+        height: 300px;
       }
       
-      .chart-title {
-        font-size: 1.4rem;
+      #desktop+mobile+tablet-comparison-BR-monthly-202405-202505,
+      #mobile+tablet-android_version-BR-monthly-202405-202505 {
+        width: 100%;
+        max-width: 600px;
+        height: 300px;
       }
       
-      .chart-wrapper {
-        transform: scale(0.95);
+      .chart-content {
+        display: flex;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 850px) {
+      #mobile_vendor-BR-monthly-202405-202505 {
+        width: 700px;
+        height: 280px;
       }
     }
     
     @media (max-width: 768px) {
       h1 {
-        font-size: 2.2rem;
-      }
-      
-      .subtitle {
-        font-size: 1.1rem;
-      }
-      
-      header {
-        padding: 30px 15px;
-      }
-      
-      .chart-title {
-        font-size: 1.3rem;
-      }
-      
-      .chart-wrapper {
-        transform: scale(0.85);
-      }
-    }
-    
-    @media (max-width: 576px) {
-      .chart-wrapper {
-        transform: scale(0.75);
-      }
-    }
-    
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.9rem;
+        font-size: 2rem;
       }
       
       .subtitle {
         font-size: 1rem;
       }
       
-      .chart-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
+      header {
+        padding: 25px 15px;
+      }
+      
+      .chart-title {
+        font-size: 1.3rem;
+      }
+      
+      #mobile_vendor-BR-monthly-202405-202505 {
+        width: 600px;
+        height: 260px;
+      }
+    }
+    
+    @media (max-width: 650px) {
+      #mobile_vendor-BR-monthly-202405-202505 {
+        width: 500px;
+        height: 220px;
+      }
+      
+      #desktop+mobile+tablet-comparison-BR-monthly-202405-202505,
+      #mobile+tablet-android_version-BR-monthly-202405-202505 {
+        height: 250px;
+      }
+    }
+    
+    @media (max-width: 550px) {
+      #mobile_vendor-BR-monthly-202405-202505 {
+        width: 420px;
+        height: 200px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.7rem;
       }
       
       .chart-title {
         font-size: 1.2rem;
       }
       
-      .chart-wrapper {
-        transform: scale(0.7);
-        margin-left: -15px;
+      #mobile_vendor-BR-monthly-202405-202505 {
+        width: 380px;
+        height: 180px;
+      }
+      
+      #desktop+mobile+tablet-comparison-BR-monthly-202405-202505,
+      #mobile+tablet-android_version-BR-monthly-202405-202505 {
+        height: 220px;
+      }
+    }
+    
+    @media (max-width: 420px) {
+      #mobile_vendor-BR-monthly-202405-202505 {
+        width: 340px;
+        height: 160px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Header harmonizado -->
+    <!-- Header simplificado -->
     <header>
-      <div class="header-content">
-        <h1><i class="fas fa-chart-bar"></i> Estatísticas de Mercado</h1>
-        <p class="subtitle">Dados atualizados sobre participação de mercado de dispositivos móveis e sistemas operacionais no Brasil</p>
-      </div>
+      <h1><i class="fas fa-chart-bar"></i> Estatísticas de Mercado</h1>
+      <p class="subtitle">Dados atualizados sobre dispositivos móveis e sistemas operacionais no Brasil</p>
     </header>
     
     <section class="stats-section">
@@ -252,53 +279,47 @@
         <div class="chart-header">
           <h2 class="chart-title">
             <i class="fas fa-mobile-alt chart-icon"></i>
-            Participação de Mercado de Fabricantes
+            Fabricantes de Smartphones
           </h2>
         </div>
         
         <div class="chart-content">
-          <div class="chart-wrapper">
-            <div id="mobile_vendor-BR-monthly-202405-202505" style="width: 1100px; height: 390px;"></div>
-          </div>
+          <div id="mobile_vendor-BR-monthly-202405-202505"></div>
         </div>
         
-        <p>Fonte: <a href="https://gs.statcounter.com/vendor-market-share/mobile/brazil" target="_blank">StatCounter Global Stats - Device Vendor Market Share</a></p>
+        <span class="source-link">Fonte: <a href="https://gs.statcounter.com/vendor-market-share/mobile/brazil" target="_blank">StatCounter</a></span>
       </div>
       
-      <!-- Dois gráficos menores em colunas -->
+      <!-- Dois gráficos menores -->
       <div class="two-columns">
         <div class="chart-container">
           <div class="chart-header">
             <h2 class="chart-title">
               <i class="fas fa-laptop chart-icon"></i>
-              Comparação de Plataformas
+              Plataformas
             </h2>
           </div>
           
           <div class="chart-content">
-            <div class="chart-wrapper">
-              <div id="desktop+mobile+tablet-comparison-BR-monthly-202405-202505" style="width: 590px; height: 390px;"></div>
-            </div>
+            <div id="desktop+mobile+tablet-comparison-BR-monthly-202405-202505"></div>
           </div>
           
-          <p>Fonte: <a href="https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/brazil" target="_blank">StatCounter Global Stats - Platform Comparison Market Share</a></p>
+          <span class="source-link">Fonte: <a href="https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/brazil" target="_blank">StatCounter</a></span>
         </div>
         
         <div class="chart-container">
           <div class="chart-header">
             <h2 class="chart-title">
               <i class="fab fa-android chart-icon"></i>
-              Versões do Android
+              Android
             </h2>
           </div>
           
           <div class="chart-content">
-            <div class="chart-wrapper">
-              <div id="mobile+tablet-android_version-BR-monthly-202405-202505" style="width: 590px; height: 390px;"></div>
-            </div>
+            <div id="mobile+tablet-android_version-BR-monthly-202405-202505"></div>
           </div>
           
-          <p>Fonte: <a href="https://gs.statcounter.com/android-version-market-share/mobile-tablet/brazil" target="_blank">StatCounter Global Stats - Android Version Market Share</a></p>
+          <span class="source-link">Fonte: <a href="https://gs.statcounter.com/android-version-market-share/mobile-tablet/brazil" target="_blank">StatCounter</a></span>
         </div>
       </div>
     </section>
@@ -309,42 +330,8 @@
   </div>
 
   <script type="text/javascript" src="https://www.statcounter.com/js/fusioncharts.js"></script>
-  <script type="text/javascript" src="https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202405-202505&chartWidth=1100"></script>
-  <script type="text/javascript" src="https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202405-202505&chartWidth=590"></script>
-  <script type="text/javascript" src="https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202405-202505&chartWidth=590"></script>
-  
-  <script>
-    // Função para redimensionar os gráficos conforme necessário
-    function adjustChartSizes() {
-      // Obtém todos os wrappers de gráficos
-      const chartWrappers = document.querySelectorAll('.chart-wrapper');
-      
-      chartWrappers.forEach(wrapper => {
-        const chart = wrapper.querySelector('div');
-        if (chart) {
-          const containerWidth = wrapper.clientWidth;
-          
-          // Verifica se o gráfico é mais largo que o contêiner
-          if (chart.offsetWidth > containerWidth) {
-            const scaleRatio = containerWidth / chart.offsetWidth;
-            chart.style.transform = `scale(${scaleRatio})`;
-            chart.style.transformOrigin = 'top left';
-          } else {
-            chart.style.transform = 'scale(1)';
-          }
-        }
-      });
-    }
-    
-    // Ajustar gráficos ao carregar e ao redimensionar
-    window.addEventListener('DOMContentLoaded', () => {
-      // Aguarda os gráficos carregarem
-      setTimeout(() => {
-        adjustChartSizes();
-      }, 1000);
-    });
-    
-    window.addEventListener('resize', adjustChartSizes);
-  </script>
+  <script type="text/javascript" src="https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202405-202505&chartWidth=1000"></script>
+  <script type="text/javascript" src="https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202405-202505&chartWidth=550"></script>
+  <script type="text/javascript" src="https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202405-202505&chartWidth=550"></script>
 </body>
 </html>
