@@ -24,22 +24,22 @@
     .container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0;
+      padding: 0 10px;
     }
     
     /* Header simplificado */
     header {
       text-align: center;
       margin-bottom: 20px;
-      padding: 30px 20px;
+      padding: 25px;
       background: linear-gradient(135deg, #2c3e50, #1a2536);
       border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
     h1 {
-      font-size: 2.3rem;
-      margin-bottom: 10px;
+      font-size: 2.2rem;
+      margin-bottom: 8px;
       color: white;
       font-weight: 600;
       display: flex;
@@ -65,9 +65,9 @@
     
     .chart-container {
       background: white;
-      border-radius: 12px;
+      border-radius: 10px;
       padding: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -75,7 +75,7 @@
     }
     
     .chart-header {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       padding-bottom: 10px;
       border-bottom: 1px solid #eee;
     }
@@ -95,7 +95,6 @@
     
     .chart-content {
       flex: 1;
-      min-height: 350px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -105,14 +104,12 @@
       position: relative;
     }
     
-    .chart-wrapper {
+    .chart-frame {
       width: 100%;
       height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: auto;
-      padding: 10px;
     }
     
     .source-link {
@@ -120,7 +117,7 @@
       text-align: center;
       font-size: 0.85rem;
       color: #7f8c8d;
-      margin-top: 10px;
+      margin-top: 12px;
     }
     
     .source-link a {
@@ -140,24 +137,13 @@
       gap: 20px;
     }
     
-    /* Ajuste dos gráficos para preencher o container */
-    #mobile_vendor-BR-monthly-202405-202505,
-    #desktop+mobile+tablet-comparison-BR-monthly-202405-202505,
-    #mobile+tablet-android_version-BR-monthly-202405-202505 {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
+    /* Gráficos com altura proporcional */
+    .main-chart .chart-content {
+      height: 380px;
     }
     
-    .graphic-notice {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      color: #7f8c8d;
+    .secondary-chart .chart-content {
+      height: 380px;
     }
     
     footer {
@@ -167,175 +153,11 @@
       font-size: 0.9rem;
       margin-top: 20px;
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     
     /* Responsividade */
     @media (max-width: 1200px) {
-      .container {
-        padding: 0 15px;
-      }
-    }
-    
-    @media (max-width: 992px) {
-      .two-columns {
-        grid-template-columns: 1fr;
-      }
-      
-      .chart-content {
-        min-height: 300px;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 1.9rem;
-      }
-      
-      .subtitle {
-        font-size: 1rem;
-      }
-      
-      header {
-        padding: 25px 15px;
-      }
-      
-      .chart-title {
-        font-size: 1.2rem;
-      }
-      
-      .chart-content {
-        min-height: 250px;
-      }
-    }
-    
-    @media (max-width: 576px) {
-      .chart-content {
-        min-height: 200px;
-      }
-      
-      .graphic-notice {
-        display: none;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Header simplificado -->
-    <header>
-      <h1><i class="fas fa-chart-bar"></i> Estatísticas de Mercado</h1>
-      <p class="subtitle">Dados atualizados sobre dispositivos móveis e sistemas operacionais no Brasil</p>
-    </header>
-    
-    <section class="stats-section">
-      <!-- Gráfico principal -->
-      <div class="chart-container">
-        <div class="chart-header">
-          <h2 class="chart-title">
-            <i class="fas fa-mobile-alt chart-icon"></i>
-            Fabricantes de Smartphones
-          </h2>
-        </div>
-        
-        <div class="chart-content">
-          <div class="chart-wrapper">
-            <div id="mobile_vendor-BR-monthly-202405-202505"></div>
-          </div>
-          <div class="graphic-notice">Role para ver o gráfico completo</div>
-        </div>
-        
-        <span class="source-link">Fonte: <a href="https://gs.statcounter.com/vendor-market-share/mobile/brazil" target="_blank">StatCounter</a></span>
-      </div>
-      
-      <!-- Dois gráficos menores -->
-      <div class="two-columns">
-        <div class="chart-container">
-          <div class="chart-header">
-            <h2 class="chart-title">
-              <i class="fas fa-laptop chart-icon"></i>
-              Plataformas
-            </h2>
-          </div>
-          
-          <div class="chart-content">
-            <div class="chart-wrapper">
-              <div id="desktop+mobile+tablet-comparison-BR-monthly-202405-202505"></div>
-            </div>
-          </div>
-          
-          <span class="source-link">Fonte: <a href="https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/brazil" target="_blank">StatCounter</a></span>
-        </div>
-        
-        <div class="chart-container">
-          <div class="chart-header">
-            <h2 class="chart-title">
-              <i class="fab fa-android chart-icon"></i>
-              Android
-            </h2>
-          </div>
-          
-          <div class="chart-content">
-            <div class="chart-wrapper">
-              <div id="mobile+tablet-android_version-BR-monthly-202405-202505"></div>
-            </div>
-          </div>
-          
-          <span class="source-link">Fonte: <a href="https://gs.statcounter.com/android-version-market-share/mobile-tablet/brazil" target="_blank">StatCounter</a></span>
-        </div>
-      </div>
-    </section>
-    
-    <footer>
-      <p>Dados atualizados mensalmente | Estatísticas fornecidas por StatCounter</p>
-    </footer>
-  </div>
-
-  <script type="text/javascript" src="https://www.statcounter.com/js/fusioncharts.js"></script>
-  <script type="text/javascript" src="https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202405-202505&chartWidth=1000"></script>
-  <script type="text/javascript" src="https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202405-202505&chartWidth=550"></script>
-  <script type="text/javascript" src="https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202405-202505&chartWidth=550"></script>
-  
-  <script>
-    // Função para ajustar os gráficos para preencher o container
-    function adjustCharts() {
-      const charts = [
-        { id: 'mobile_vendor-BR-monthly-202405-202505', width: 1000, height: 350 },
-        { id: 'desktop+mobile+tablet-comparison-BR-monthly-202405-202505', width: 550, height: 350 },
-        { id: 'mobile+tablet-android_version-BR-monthly-202405-202505', width: 550, height: 350 }
-      ];
-      
-      charts.forEach(chart => {
-        const element = document.getElementById(chart.id);
-        if (element) {
-          const container = element.closest('.chart-content');
-          if (container) {
-            const containerWidth = container.clientWidth;
-            const containerHeight = container.clientHeight;
-            
-            // Calcular proporções
-            const widthRatio = containerWidth / chart.width;
-            const heightRatio = containerHeight / chart.height;
-            const scaleRatio = Math.min(widthRatio, heightRatio);
-            
-            // Aplicar escala para preencher o container
-            element.style.transform = `scale(${scaleRatio})`;
-            element.style.transformOrigin = 'top left';
-          }
-        }
-      });
-    }
-    
-    // Ajustar gráficos ao carregar e ao redimensionar
-    window.addEventListener('DOMContentLoaded', () => {
-      // Aguardar os gráficos carregarem
-      setTimeout(() => {
-        adjustCharts();
-      }, 1000);
-    });
-    
-    window.addEventListener('resize', adjustCharts);
-  </script>
-</body>
-</html>
+      .main-chart .chart-content {
+       
