@@ -160,4 +160,204 @@
     /* Responsividade */
     @media (max-width: 1200px) {
       .main-chart .chart-content {
-       
+        height: 350px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 350px;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .two-columns {
+        grid-template-columns: 1fr;
+      }
+      
+      .main-chart .chart-content {
+        height: 380px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 380px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.9rem;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
+      }
+      
+      header {
+        padding: 20px 15px;
+      }
+      
+      .chart-title {
+        font-size: 1.2rem;
+      }
+      
+      .main-chart .chart-content {
+        height: 300px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 300px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .main-chart .chart-content {
+        height: 250px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header simplificado -->
+    <header>
+      <h1><i class="fas fa-chart-bar"></i> Estatísticas de Mercado</h1>
+      <p class="subtitle">Dados atualizados sobre dispositivos móveis e sistemas operacionais no Brasil</p>
+    </header>
+    
+    <section class="stats-section">
+      <!-- Gráfico principal -->
+      <div class="chart-container main-chart">
+        <div class="chart-header">
+          <h2 class="chart-title">
+            <i class="fas fa-mobile-alt chart-icon"></i>
+            Fabricantes de Smartphones
+          </h2>
+        </div>
+        
+        <div class="chart-content">
+          <div class="chart-frame">
+            <div id="mobile_vendor-BR-monthly-202405-202505"></div>
+          </div>
+        </div>
+        
+        <span class="source-link">Fonte: <a href="https://gs.statcounter.com/vendor-market-share/mobile/brazil" target="_blank">StatCounter</a></span>
+      </div>
+      
+      <!-- Dois gráficos menores -->
+      <div class="two-columns">
+        <div class="chart-container secondary-chart">
+          <div class="chart-header">
+            <h2 class="chart-title">
+              <i class="fas fa-laptop chart-icon"></i>
+              Plataformas
+            </h2>
+          </div>
+          
+          <div class="chart-content">
+            <div class="chart-frame">
+              <div id="desktop+mobile+tablet-comparison-BR-monthly-202405-202505"></div>
+            </div>
+          </div>
+          
+          <span class="source-link">Fonte: <a href="https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/brazil" target="_blank">StatCounter</a></span>
+        </div>
+        
+        <div class="chart-container secondary-chart">
+          <div class="chart-header">
+            <h2 class="chart-title">
+              <i class="fab fa-android chart-icon"></i>
+              Android
+            </h2>
+          </div>
+          
+          <div class="chart-content">
+            <div class="chart-frame">
+              <div id="mobile+tablet-android_version-BR-monthly-202405-202505"></div>
+            </div>
+          </div>
+          
+          <span class="source-link">Fonte: <a href="https://gs.statcounter.com/android-version-market-share/mobile-tablet/brazil" target="_blank">StatCounter</a></span>
+        </div>
+      </div>
+    </section>
+    
+    <footer>
+      <p>Dados atualizados mensalmente | Estatísticas fornecidas por StatCounter</p>
+    </footer>
+  </div>
+
+  <script type="text/javascript" src="https://www.statcounter.com/js/fusioncharts.js"></script>
+  <script>
+    // Carregar os gráficos com dimensões responsivas
+    function loadCharts() {
+      // Obter dimensões dos containers
+      const mainChart = document.querySelector('.main-chart .chart-content');
+      const secondaryChart = document.querySelector('.secondary-chart .chart-content');
+      
+      // Calcular dimensões baseadas nos containers
+      const mainWidth = Math.min(mainChart.clientWidth, 1000);
+      const mainHeight = mainChart.clientHeight;
+      
+      const secWidth = Math.min(secondaryChart.clientWidth, 550);
+      const secHeight = secondaryChart.clientHeight;
+      
+      // Carregar gráfico principal
+      const script1 = document.createElement('script');
+      script1.src = `https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202405-202505&chartWidth=${mainWidth}&chartHeight=${mainHeight}`;
+      document.body.appendChild(script1);
+      
+      // Carregar gráficos secundários
+      const script2 = document.createElement('script');
+      script2.src = `https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202405-202505&chartWidth=${secWidth}&chartHeight=${secHeight}`;
+      document.body.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = `https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202405-202505&chartWidth=${secWidth}&chartHeight=${secHeight}`;
+      document.body.appendChild(script3);
+    }
+    
+    // Função para ajustar os gráficos
+    function adjustCharts() {
+      const charts = [
+        { id: 'mobile_vendor-BR-monthly-202405-202505' },
+        { id: 'desktop+mobile+tablet-comparison-BR-monthly-202405-202505' },
+        { id: 'mobile+tablet-android_version-BR-monthly-202405-202505' }
+      ];
+      
+      charts.forEach(chart => {
+        const element = document.getElementById(chart.id);
+        if (element) {
+          const container = element.closest('.chart-content');
+          if (container) {
+            element.style.width = '100%';
+            element.style.height = '100%';
+          }
+        }
+      });
+    }
+    
+    // Carregar e ajustar gráficos
+    window.addEventListener('DOMContentLoaded', () => {
+      loadCharts();
+      
+      // Aguardar os gráficos carregarem
+      setTimeout(() => {
+        adjustCharts();
+      }, 1500);
+    });
+    
+    // Reajustar ao redimensionar a janela
+    window.addEventListener('resize', () => {
+      // Recarregar os gráficos com novas dimensões
+      loadCharts();
+      
+      setTimeout(() => {
+        adjustCharts();
+      }, 500);
+    });
+  </script>
+</body>
+</html>
