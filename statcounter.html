@@ -232,7 +232,7 @@
         </div>
         
         <div class="chart-content">
-          <div id="mobile_vendor-BR-monthly-202405-202505" style="width:100%; height:350px;"></div>
+          <div id="mobile_vendor-BR-monthly-202405-202505" style="width:100%; height:550px;"></div>
         </div>
         
         <p>Fonte: <a href="https://gs.statcounter.com/vendor-market-share/mobile/brazil" target="_blank">StatCounter Global Stats - Device Vendor Market Share</a></p>
@@ -249,7 +249,7 @@
           </div>
           
           <div class="chart-content">
-            <div id="desktop+mobile+tablet-comparison-BR-monthly-202405-202505" style="width:80%; height:350px;"></div>
+            <div id="desktop+mobile+tablet-comparison-BR-monthly-202405-202505" style="width:80%; height:300px;"></div>
           </div>
           
           <p>Fonte: <a href="https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/brazil" target="_blank">StatCounter Global Stats - Platform Comparison Market Share</a></p>
@@ -264,7 +264,7 @@
           </div>
           
           <div class="chart-content">
-            <div id="mobile+tablet-android_version-BR-monthly-202405-202505" style="width:80%; height:350px;"></div>
+            <div id="mobile+tablet-android_version-BR-monthly-202405-202505" style="width:80%; height:300px;"></div>
           </div>
           
           <p>Fonte: <a href="https://gs.statcounter.com/android-version-market-share/mobile-tablet/brazil" target="_blank">StatCounter Global Stats - Android Version Market Share</a></p>
@@ -286,15 +286,15 @@
     // Ajustar os gráficos para responsividade
     function adjustCharts() {
       const charts = [
-        { id: 'mobile_vendor-BR-monthly-202405-202505', height: 350 },
-        { id: 'desktop+mobile+tablet-comparison-BR-monthly-202405-202505', height: 350 },
-        { id: 'mobile+tablet-android_version-BR-monthly-202405-202505', height: 350 }
+        { id: 'mobile_vendor-BR-monthly-202405-202505', height: 550 },
+        { id: 'desktop+mobile+tablet-comparison-BR-monthly-202405-202505', height: 300 },
+        { id: 'mobile+tablet-android_version-BR-monthly-202405-202505', height: 300 }
       ];
       
       charts.forEach(chart => {
         const element = document.getElementById(chart.id);
         if (element) {
-          element.style.width = '100%';
+          element.style.width = '80%';
           element.style.height = `${chart.height}px`;
         }
       });
