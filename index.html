@@ -20,7 +20,6 @@
       line-height: 1.6;
       padding: 20px;
       min-height: 100vh;
-      position: relative;
     }
     
     .container {
@@ -96,7 +95,7 @@
       transform: translateY(-3px);
     }
     
-    /* Botão para abrir o pop-up */
+    /* Botão para abrir o Google Trends */
     .trends-button {
       background: #3498db;
       color: white;
@@ -111,6 +110,8 @@
       margin: 20px auto 0;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+      text-decoration: none;
+      width: fit-content;
     }
     
     .trends-button:hover {
@@ -296,85 +297,6 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
     
-    /* Pop-up styles */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-    
-    .popup-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .popup-content {
-      background: white;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 900px;
-      max-height: 85vh;
-      overflow: hidden;
-      position: relative;
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
-    }
-    
-    .popup-overlay.active .popup-content {
-      transform: scale(1);
-    }
-    
-    .popup-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      background: #3498db;
-      color: white;
-    }
-    
-    .popup-header h2 {
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .close-btn {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.8rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    
-    .close-btn:hover {
-      transform: rotate(90deg);
-    }
-    
-    .popup-body {
-      height: 70vh;
-      padding: 0;
-      overflow: hidden;
-    }
-    
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    
     /* Responsividade */
     @media (max-width: 992px) {
       .links-container {
@@ -383,10 +305,6 @@
       
       .additional-section {
         grid-template-columns: 1fr;
-      }
-      
-      .popup-content {
-        width: 95%;
       }
     }
     
@@ -408,8 +326,9 @@
         padding: 30px 15px;
       }
       
-      .popup-header h2 {
-        font-size: 1.1rem;
+      .trends-button {
+        font-size: 1rem;
+        padding: 10px 20px;
       }
     }
   </style>
@@ -435,18 +354,21 @@
         </div>
       </div>
       
-
+      <!-- Botão como link para Google Trends -->
+      <a href="https://trends.google.com.br/trends/explore?geo=BR&q=smartphone&hl=pt" 
+         target="_blank" 
+         class="trends-button">
+        <i class="fab fa-google"></i>
+        Ver Tendências de Smartphones no Brasil
+      </a>
     </header>
     
     <!-- Seção para elementos adicionais -->
     <div class="additional-section">
       <div class="placeholder-box">
-        
-        <h3>Google Trends</h3>
-             <button class="trends-button" id="openTrends">
-        <i class="fab fa-google"></i>
-        Ver Tendências de Pesquisa
-      </button>
+        <i class="fas fa-star"></i>
+        <h3>Recursos em Destaque</h3>
+        <p>Os melhores conteúdos selecionados pela nossa equipe</p>
       </div>
       <div class="placeholder-box">
         <i class="fas fa-chart-line"></i>
@@ -466,19 +388,6 @@
     <footer>
       <p>Esta página é atualizada automaticamente a cada 5 minutos | Desenvolvido com <i class="fas fa-heart" style="color: #e74c3c;"></i> para você</p>
     </footer>
-  </div>
-  
-  <!-- Pop-up para o Google Trends -->
-  <div class="popup-overlay" id="trendsPopup">
-    <div class="popup-content">
-      <div class="popup-header">
-        <h2><i class="fab fa-google"></i> Google Trends - Smartphones no Brasil</h2>
-        <button class="close-btn" id="closePopup">&times;</button>
-      </div>
-      <div class="popup-body">
-        <iframe src="https://trends.google.com.br/trends/embed/explore/TIMESERIES?req=%7B%22comparisonItem%22%3A%5B%7B%22keyword%22%3A%22smartphone%22%2C%22geo%22%3A%22BR%22%2C%22time%22%3A%22today%2012-m%22%7D%5D%2C%22category%22%3A0%2C%22property%22%3A%22%22%7D&tz=-180&eq=geo%3DBR%26q%3Dsmartphone"></iframe>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -560,10 +469,7 @@
         loadingIndicator.innerHTML = '<i class="fas fa-spinner"></i><p>Obtendo imagens...</p>';
         container.appendChild(loadingIndicator);
         
-        // Limitar para 20 recursos para demonstração (remova em produção)
-        const demoData = results.data.slice(0, 20);
-        
-        for (const row of demoData) {
+        for (const row of results.data) {
           if (row.Título && row.Link) {
             const titulo = safeText(row.Título);
             const link = safeText(row.Link);
@@ -617,40 +523,12 @@
       }
     }
 
-    // Pop-up functions
-    function setupPopup() {
-      const popup = document.getElementById('trendsPopup');
-      const openBtn = document.getElementById('openTrends');
-      const closeBtn = document.getElementById('closePopup');
-      
-      openBtn.addEventListener('click', () => {
-        popup.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
-      
-      closeBtn.addEventListener('click', () => {
-        popup.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      });
-      
-      popup.addEventListener('click', (e) => {
-        if (e.target === popup) {
-          popup.classList.remove('active');
-          document.body.style.overflow = 'auto';
-        }
-      });
-    }
-
     // Carregar dados ao iniciar
-    window.addEventListener('DOMContentLoaded', () => {
-      loadData();
-      setupPopup();
-    });
+    window.addEventListener('DOMContentLoaded', loadData);
     
     // Atualizar a cada 5 minutos
     setInterval(loadData, 5 * 60 * 1000);
   </script>
 </body>
 </html>
-
 
