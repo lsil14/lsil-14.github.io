@@ -1,0 +1,71 @@
+/* styles.css - Estilos compartilhados */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+/* Header simplificado */
+header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 25px;
+  background: linear-gradient(135deg, #2c3e50, #1a2536);
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin-top: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.9rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  header {
+    padding: 20px 15px;
+  }
+}

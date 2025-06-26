@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofertas Especiais</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 15px;
+      min-height: 100vh;
+    }
+    
+    .content-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin: 25px 0;
+    }
+    
+    .offer-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+    
+    .offer-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+    
+    .offer-image {
+      height: 200px;
+      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bdc3c7;
+      font-size: 3rem;
+    }
+    
+    .offer-content {
+      padding: 20px;
+    }
+    
+    .offer-title {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+    
+    .offer-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #e74c3c;
+      margin-bottom: 15px;
+    }
+    
+    .offer-description {
+      color: #7f8c8d;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    
+    .offer-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .offer-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+    }
+    
+    .section-title {
+      text-align: center;
+      margin: 25px 0;
+      color: #2c3e50;
+      font-size: 1.8rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #3498db, #9b59b6);
+      border-radius: 2px;
+    }
+    
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .content-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .section-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-percent"></i> Ofertas Especiais</h1>
+      <p class="subtitle">As melhores promoções de smartphones e acessórios</p>
+    </header>
+    
+    <h2 class="section-title">Smartphones em Promoção</h2>
+    
+    <div class="content-section">
+      <div class="offer-card">
+        <div class="offer-image">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <div class="offer-content">
+          <h3 class="offer-title">Smartphone Premium</h3>
+          <div class="offer-price">R$ 2.299,00</div>
+          <p class="offer-description">Smartphone com tela AMOLED, 128GB de armazenamento e câmera tripla.</p>
+          <a href="#" class="offer-link">Ver Oferta</a>
+        </div>
+      </div>
+      
+      <div class="offer-card">
+        <div class="offer-image">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <div class="offer-content">
+          <h3 class="offer-title">Smartphone Intermediário</h3>
+          <div class="offer-price">R$ 1.199,00</div>
+          <p class="offer-description">Excelente custo-benefício com câmera de 48MP e bateria de longa duração.</p>
+          <a href="#" class="offer-link">Ver Oferta</a>
+        </div>
+      </div>
+      
+      <div class="offer-card">
+        <div class="offer-image">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <div class="offer-content">
+          <h3 class="offer-title">Smartphone Econômico</h3>
+          <div class="offer-price">R$ 799,00</div>
+          <p class="offer-description">Perfeito para uso diário com desempenho fluido e design moderno.</p>
+          <a href="#" class="offer-link">Ver Oferta</a>
+        </div>
+      </div>
+    </div>
+    
+    <h2 class="section-title">Acessórios em Destaque</h2>
+    
+    <div class="content-section">
+      <div class="offer-card">
+        <div class="offer-image">
+          <i class="fas fa-headphones"></i>
+        </div>
+        <div class="offer-content">
+          <h3 class="offer-title">Fones Bluetooth</h3>
+          <div class="offer-price">R$ 199,00</div>
+          <p class="offer-description">Fones sem fio com cancelamento de ruído e 20h de bateria.</p>
+          <a href="#" class="offer-link">Ver Oferta</a>
+        </div>
+      </div>
+      
+      <div class="offer-card">
+        <div class="offer-image">
+          <i class="fas fa-battery-full"></i>
+        </div>
+        <div class="offer-content">
+          <h3 class="offer-title">Power Bank</h3>
+          <div class="offer-price">R$ 149,00</div>
+          <p class="offer-description">Carregador portátil de 20.000mAh com saída rápida USB-C.</p>
+          <a href="#" class="offer-link">Ver Oferta</a>
+        </div>
+      </div>
+      
+      <div class="offer-card">
+        <div class="offer-image">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="offer-content">
+          <h3 class="offer-title">Películas Protetoras</h3>
+          <div class="offer-price">R$ 49,90</div>
+          <p class="offer-description">Kit com 3 películas de vidro temperado para diversos modelos.</p>
+          <a href="#" class="offer-link">Ver Oferta</a>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+      <p>Ofertas atualizadas diariamente | Desenvolvido com <i class="fas fa-heart" style="color: #e74c3c;"></i> para você</p>
+    </footer>
+  </div>
+</body>
+</html>

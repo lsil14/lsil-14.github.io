@@ -4,58 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estatísticas de Mercado - Brasil</title>
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f8fafc;
-      color: #333;
-      line-height: 1.6;
       padding: 15px;
       min-height: 100vh;
     }
     
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 10px;
-    }
-    
-    /* Header simplificado */
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-      padding: 25px;
-      background: linear-gradient(135deg, #2c3e50, #1a2536);
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 8px;
-      color: white;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-    
-    .subtitle {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.85);
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    
-    /* Seção de gráficos otimizada */
+    /* Seção de gráficos */
     .stats-section {
       display: grid;
       grid-template-columns: 1fr;
@@ -99,7 +57,7 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      background: #ffffff;
+      background: #f9fafb;
       border-radius: 8px;
       position: relative;
     }
@@ -134,27 +92,16 @@
     .two-columns {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      gap: 20px;
     }
     
-    /* Gráficos com altura proporcional */
+    /* Altura dos gráficos */
     .main-chart .chart-content {
       height: 380px;
     }
     
     .secondary-chart .chart-content {
       height: 380px;
-    }
-    
-    footer {
-      text-align: center;
-      padding: 15px;
-      color: #7f8c8d;
-      font-size: 0.9rem;
-      margin-top: 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     
     /* Responsividade */
@@ -183,18 +130,6 @@
     }
     
     @media (max-width: 768px) {
-      h1 {
-        font-size: 1.9rem;
-      }
-      
-      .subtitle {
-        font-size: 1rem;
-      }
-      
-      header {
-        padding: 20px 15px;
-      }
-      
       .chart-title {
         font-size: 1.2rem;
       }
@@ -221,14 +156,12 @@
 </head>
 <body>
   <div class="container">
-    <!-- Header simplificado -->
     <header>
       <h1><i class="fas fa-chart-bar"></i> Estatísticas de Mercado</h1>
       <p class="subtitle">Dados atualizados sobre dispositivos móveis e sistemas operacionais no Brasil</p>
     </header>
     
     <section class="stats-section">
-      <!-- Gráfico principal -->
       <div class="chart-container main-chart">
         <div class="chart-header">
           <h2 class="chart-title">
@@ -246,7 +179,6 @@
         <span class="source-link">Fonte: <a href="https://gs.statcounter.com/vendor-market-share/mobile/brazil" target="_blank">StatCounter</a></span>
       </div>
       
-      <!-- Dois gráficos menores -->
       <div class="two-columns">
         <div class="chart-container secondary-chart">
           <div class="chart-header">
@@ -291,72 +223,54 @@
 
   <script type="text/javascript" src="https://www.statcounter.com/js/fusioncharts.js"></script>
   <script>
-    // Carregar os gráficos com dimensões responsivas
     function loadCharts() {
-      // Obter dimensões dos containers
       const mainChart = document.querySelector('.main-chart .chart-content');
       const secondaryChart = document.querySelector('.secondary-chart .chart-content');
       
-      // Calcular dimensões baseadas nos containers
       const mainWidth = Math.min(mainChart.clientWidth, 1000);
       const mainHeight = mainChart.clientHeight;
       
       const secWidth = Math.min(secondaryChart.clientWidth, 550);
       const secHeight = secondaryChart.clientHeight;
       
-      // Carregar gráfico principal
-      const script1 = document.createElement('script');
-      script1.src = `https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202405-202505&chartWidth=${mainWidth}&chartHeight=${mainHeight}`;
-      document.body.appendChild(script1);
-      
-      // Carregar gráficos secundários
-      const script2 = document.createElement('script');
-      script2.src = `https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202405-202505&chartWidth=${secWidth}&chartHeight=${secHeight}`;
-      document.body.appendChild(script2);
-      
-      const script3 = document.createElement('script');
-      script3.src = `https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202405-202505&chartWidth=${secWidth}&chartHeight=${secHeight}`;
-      document.body.appendChild(script3);
-    }
-    
-    // Função para ajustar os gráficos
-    function adjustCharts() {
-      const charts = [
-        { id: 'mobile_vendor-BR-monthly-202405-202505' },
-        { id: 'desktop+mobile+tablet-comparison-BR-monthly-202405-202505' },
-        { id: 'mobile+tablet-android_version-BR-monthly-202405-202505' }
+      // Carregar gráficos
+      const scripts = [
+        `https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202405-202505&chartWidth=${mainWidth}&chartHeight=${mainHeight}`,
+        `https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202405-202505&chartWidth=${secWidth}&chartHeight=${secHeight}`,
+        `https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202405-202505&chartWidth=${secWidth}&chartHeight=${secHeight}`
       ];
       
-      charts.forEach(chart => {
-        const element = document.getElementById(chart.id);
+      scripts.forEach(src => {
+        const script = document.createElement('script');
+        script.src = src;
+        document.body.appendChild(script);
+      });
+    }
+    
+    function adjustCharts() {
+      const charts = [
+        'mobile_vendor-BR-monthly-202405-202505',
+        'desktop+mobile+tablet-comparison-BR-monthly-202405-202505',
+        'mobile+tablet-android_version-BR-monthly-202405-202505'
+      ];
+      
+      charts.forEach(id => {
+        const element = document.getElementById(id);
         if (element) {
-          const container = element.closest('.chart-content');
-          if (container) {
-            element.style.width = '100%';
-            element.style.height = '100%';
-          }
+          element.style.width = '100%';
+          element.style.height = '100%';
         }
       });
     }
     
-    // Carregar e ajustar gráficos
     window.addEventListener('DOMContentLoaded', () => {
       loadCharts();
-      
-      // Aguardar os gráficos carregarem
-      setTimeout(() => {
-        adjustCharts();
-      }, 1500);
+      setTimeout(adjustCharts, 1500);
     });
     
-    // Reajustar ao redimensionar a janela
     window.addEventListener('resize', () => {
-      // Recarregar os gráficos com novas dimensões
       loadCharts();
-      
-      setTimeout(() => {
-        adjustCharts();
-      }, 500);
+      setTimeout(adjustCharts, 500);
     });
   </script>
 </body>
