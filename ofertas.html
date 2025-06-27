@@ -6,6 +6,7 @@
   <title>Ofertas Especiais</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <style>
     body {
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -26,6 +27,9 @@
       overflow: hidden;
       box-shadow: 0 6px 18px rgba(0,0,0,0.08);
       transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
     
     .offer-card:hover {
@@ -39,12 +43,30 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #bdc3c7;
+      overflow: hidden;
+    }
+    
+    .offer-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .offer-card:hover .offer-image img {
+      transform: scale(1.05);
+    }
+    
+    .default-offer-image {
       font-size: 3rem;
+      color: #bdc3c7;
     }
     
     .offer-content {
       padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
     
     .offer-title {
@@ -57,13 +79,14 @@
       font-size: 1.5rem;
       font-weight: bold;
       color: #e74c3c;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
     
     .offer-description {
       color: #7f8c8d;
       margin-bottom: 15px;
       line-height: 1.5;
+      flex-grow: 1;
     }
     
     .offer-link {
@@ -75,11 +98,13 @@
       text-decoration: none;
       font-weight: 500;
       transition: all 0.3s ease;
+      text-align: center;
     }
     
     .offer-link:hover {
       transform: translateY(-3px);
       box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+      background: linear-gradient(135deg, #27ae60, #219653);
     }
     
     .section-title {
@@ -103,6 +128,45 @@
       border-radius: 2px;
     }
     
+    .loading {
+      text-align: center;
+      padding: 30px;
+      font-size: 1.1rem;
+      color: #7f8c8d;
+      grid-column: 1 / -1;
+    }
+    
+    .loading i {
+      display: block;
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      color: #3498db;
+      animation: spin 1.5s linear infinite;
+    }
+    
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    
+    .error-message {
+      background: #ffeef0;
+      border: 1px solid #ffdce0;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      color: #d93025;
+      margin: 20px 0;
+      grid-column: 1 / -1;
+    }
+    
+    .empty-message {
+      text-align: center;
+      padding: 30px;
+      font-size: 1.1rem;
+      color: #7f8c8d;
+      grid-column: 1 / -1;
+    }
+    
     /* Responsividade */
     @media (max-width: 768px) {
       .content-section {
@@ -122,83 +186,12 @@
       <p class="subtitle">As melhores promoções de smartphones e acessórios</p>
     </header>
     
-    <h2 class="section-title">Smartphones em Promoção</h2>
+    <h2 class="section-title">Ofertas Disponíveis</h2>
     
-    <div class="content-section">
-      <div class="offer-card">
-        <div class="offer-image">
-          <i class="fas fa-mobile-alt"></i>
-        </div>
-        <div class="offer-content">
-          <h3 class="offer-title">Smartphone Premium</h3>
-          <div class="offer-price">R$ 2.299,00</div>
-          <p class="offer-description">Smartphone com tela AMOLED, 128GB de armazenamento e câmera tripla.</p>
-          <a href="#" class="offer-link">Ver Oferta</a>
-        </div>
-      </div>
-      
-      <div class="offer-card">
-        <div class="offer-image">
-          <i class="fas fa-mobile-alt"></i>
-        </div>
-        <div class="offer-content">
-          <h3 class="offer-title">Smartphone Intermediário</h3>
-          <div class="offer-price">R$ 1.199,00</div>
-          <p class="offer-description">Excelente custo-benefício com câmera de 48MP e bateria de longa duração.</p>
-          <a href="#" class="offer-link">Ver Oferta</a>
-        </div>
-      </div>
-      
-      <div class="offer-card">
-        <div class="offer-image">
-          <i class="fas fa-mobile-alt"></i>
-        </div>
-        <div class="offer-content">
-          <h3 class="offer-title">Smartphone Econômico</h3>
-          <div class="offer-price">R$ 799,00</div>
-          <p class="offer-description">Perfeito para uso diário com desempenho fluido e design moderno.</p>
-          <a href="#" class="offer-link">Ver Oferta</a>
-        </div>
-      </div>
-    </div>
-    
-    <h2 class="section-title">Acessórios em Destaque</h2>
-    
-    <div class="content-section">
-      <div class="offer-card">
-        <div class="offer-image">
-          <i class="fas fa-headphones"></i>
-        </div>
-        <div class="offer-content">
-          <h3 class="offer-title">Fones Bluetooth</h3>
-          <div class="offer-price">R$ 199,00</div>
-          <p class="offer-description">Fones sem fio com cancelamento de ruído e 20h de bateria.</p>
-          <a href="#" class="offer-link">Ver Oferta</a>
-        </div>
-      </div>
-      
-      <div class="offer-card">
-        <div class="offer-image">
-          <i class="fas fa-battery-full"></i>
-        </div>
-        <div class="offer-content">
-          <h3 class="offer-title">Power Bank</h3>
-          <div class="offer-price">R$ 149,00</div>
-          <p class="offer-description">Carregador portátil de 20.000mAh com saída rápida USB-C.</p>
-          <a href="#" class="offer-link">Ver Oferta</a>
-        </div>
-      </div>
-      
-      <div class="offer-card">
-        <div class="offer-image">
-          <i class="fas fa-shield-alt"></i>
-        </div>
-        <div class="offer-content">
-          <h3 class="offer-title">Películas Protetoras</h3>
-          <div class="offer-price">R$ 49,90</div>
-          <p class="offer-description">Kit com 3 películas de vidro temperado para diversos modelos.</p>
-          <a href="#" class="offer-link">Ver Oferta</a>
-        </div>
+    <div id="offers-container" class="content-section">
+      <div class="loading">
+        <i class="fas fa-spinner"></i>
+        <p>Carregando ofertas...</p>
       </div>
     </div>
     
@@ -206,5 +199,93 @@
       <p>Ofertas atualizadas diariamente | Desenvolvido com <i class="fas fa-heart" style="color: #e74c3c;"></i> para você</p>
     </footer>
   </div>
+
+  <script>
+    // URL da planilha de ofertas (SUBSTITUA PELA SUA URL)
+    const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQQQwcE84wyqgyut6pu0pfKXDdQ5L4UC9lKKBoxBHi_N0gSuJd7JpGTx6uR3GGVB9SSPauMTrv0McIK/pub?gid=1799714852&single=true&output=csv";
+    const DEFAULT_IMAGES = [
+      "https://lsil14.github.io/lsil-14.github.io/Gemini_Generated_Image_4.png",
+      "https://lsil14.github.io/lsil-14.github.io/Gemini_Generated_Image_4.png",
+      "https://lsil14.github.io/lsil-14.github.io/Gemini_Generated_Image_4.png"
+    ];
+
+    function safeText(text) {
+      if (!text) return '';
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    async function loadOffers() {
+      const container = document.getElementById('offers-container');
+      container.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i><p>Carregando ofertas...</p></div>';
+      
+      try {
+        const url = `${SPREADSHEET_URL}&t=${Date.now()}`;
+        const results = await new Promise((resolve, reject) => {
+          Papa.parse(url, {
+            download: true,
+            header: true,
+            complete: resolve,
+            error: reject
+          });
+        });
+        
+        if (results.data.length === 0) {
+          container.innerHTML = '<div class="empty-message"><i class="fas fa-gift"></i><h3>Nenhuma oferta disponível</h3><p>Volte mais tarde para conferir nossas promoções</p></div>';
+          return;
+        }
+        
+        container.innerHTML = '';
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.className = 'loading';
+        loadingIndicator.innerHTML = '<i class="fas fa-spinner"></i><p>Preparando ofertas...</p>';
+        container.appendChild(loadingIndicator);
+        
+        for (const row of results.data) {
+          if (row.Título && row.Link) {
+            const titulo = safeText(row.Título);
+            const link = safeText(row.Link);
+            const preco = safeText(row.Preço || '');
+            const descricao = safeText(row.Descrição || '');
+            const imagem = row.Imagem || DEFAULT_IMAGES[Math.floor(Math.random() * DEFAULT_IMAGES.length)];
+            
+            const offerCard = document.createElement('div');
+            offerCard.className = 'offer-card';
+            offerCard.innerHTML = `
+              <div class="offer-image">
+                ${imagem ? 
+                  `<img src="${imagem}" alt="${titulo}" loading="lazy">` : 
+                  `<div class="default-offer-image"><i class="fas fa-shopping-bag"></i></div>`
+                }
+              </div>
+              <div class="offer-content">
+                <h3 class="offer-title">${titulo}</h3>
+                ${preco ? `<div class="offer-price">${preco}</div>` : ''}
+                ${descricao ? `<p class="offer-description">${descricao}</p>` : ''}
+                <a href="${link}" target="_blank" class="offer-link">Ver Oferta</a>
+              </div>
+            `;
+            container.appendChild(offerCard);
+          }
+        }
+        
+        loadingIndicator.remove();
+      } catch (error) {
+        console.error("Erro ao carregar ofertas:", error);
+        container.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Erro ao carregar ofertas</h3>
+            <p>Por favor, tente recarregar a página</p>
+          </div>
+        `;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadOffers);
+  </script>
 </body>
 </html>
