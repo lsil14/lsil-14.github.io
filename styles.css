@@ -68,4 +68,9 @@ footer {
   header {
     padding: 20px 15px;
   }
+  .chart-frame > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 }
