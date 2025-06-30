@@ -30,11 +30,6 @@
       display: flex;
       flex-direction: column;
       height: 100%;
-      .chart-frame > div {
-  width: 100% !important;
-  height: 100% !important;
-}
-
     }
     
     .chart-header {
@@ -102,11 +97,11 @@
     
     /* Altura dos gráficos */
     .main-chart .chart-content {
-      height: 380px;
+      height: 380px; /* Mantém a altura definida */
     }
     
     .secondary-chart .chart-content {
-      height: 380px;
+      height: 380px; /* Mantém a altura definida */
     }
     
     /* Responsividade */
@@ -229,29 +224,46 @@
   <script type="text/javascript" src="https://www.statcounter.com/js/fusioncharts.js"></script>
   <script>
     function loadCharts() {
-      const mainChart = document.querySelector('.main-chart .chart-content');
-      const secondaryChart = document.querySelector('.secondary-chart .chart-content');
+      // Obter as referências aos contêineres dos gráficos
+      const mainChartContainer = document.querySelector('.main-chart .chart-content');
+      const secondaryChartContainers = document.querySelectorAll('.secondary-chart .chart-content');
       
-      const mainWidth = Math.min(mainChart.clientWidth, 1000);
-      const mainHeight = mainChart.clientHeight;
+      // Calcular a largura e altura para o gráfico principal
+      // Usar offsetWidth e offsetHeight para obter os valores renderizados
+      const mainWidth = mainChartContainer.offsetWidth;
+      const mainHeight = mainChartContainer.offsetHeight;
       
-      const secWidth = Math.min(secondaryChart.clientWidth, 550);
-      const secHeight = secondaryChart.clientHeight;
+      // Calcular a largura e altura para os gráficos secundários
+      // Assumindo que todos os gráficos secundários têm o mesmo tamanho
+      let secWidth = 0;
+      let secHeight = 0;
+      if (secondaryChartContainers.length > 0) {
+        secWidth = secondaryChartContainers[0].offsetWidth;
+        secHeight = secondaryChartContainers[0].offsetHeight;
+      }
       
-      // Carregar gráficos
-      const scripts = [
+      // Limpar os gráficos existentes para recarregar
+      document.getElementById('mobile_vendor-BR-monthly-202405-202505').innerHTML = '';
+      document.getElementById('desktop+mobile+tablet-comparison-BR-monthly-202405-202505').innerHTML = '';
+      document.getElementById('mobile+tablet-android_version-BR-monthly-202405-202505').innerHTML = '';
+
+      // Carregar scripts dos gráficos com as dimensões calculadas
+      const scriptsToLoad = [
         `https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202405-202505&chartWidth=${mainWidth}&chartHeight=${mainHeight}`,
         `https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202405-202505&chartWidth=${secWidth}&chartHeight=${secHeight}`,
         `https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202405-202505&chartWidth=${secWidth}&chartHeight=${secHeight}`
       ];
       
-      scripts.forEach(src => {
+      scriptsToLoad.forEach(src => {
         const script = document.createElement('script');
         script.src = src;
+        script.type = 'text/javascript'; // Adicionar o tipo para clareza
         document.body.appendChild(script);
       });
     }
     
+    // A função adjustCharts pode ser mantida para garantir que o estilo seja aplicado,
+    // mas o principal é passar os tamanhos corretos na URL.
     function adjustCharts() {
       const charts = [
         'mobile_vendor-BR-monthly-202405-202505',
@@ -270,10 +282,14 @@
     
     window.addEventListener('DOMContentLoaded', () => {
       loadCharts();
-      setTimeout(adjustCharts, 1500);
+      // O setTimeout para adjustCharts pode ser reduzido ou removido se os gráficos
+      // já estiverem preenchendo corretamente com os novos cálculos.
+      // Vou manter um pequeno delay para garantir que os elementos estejam renderizados.
+      setTimeout(adjustCharts, 500); 
     });
     
     window.addEventListener('resize', () => {
+      // Recarregar os gráficos ao redimensionar a janela para ajustar aos novos tamanhos
       loadCharts();
       setTimeout(adjustCharts, 500);
     });
