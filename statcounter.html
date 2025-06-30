@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estatísticas de Mercado - Brasil</title>
+  <link rel="stylesheet" href="deepseek_css_20250626_b8ae8e.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* ... (outros estilos permanecem iguais) ... */
-
-    /* Correção principal: altura flexível para gráficos */
+    /* ... (mantenha os estilos anteriores) ... */
+    
     .chart-content {
       flex: 1;
       display: flex;
@@ -18,17 +18,15 @@
       background: #f9fafb;
       border-radius: 8px;
       position: relative;
-      height: auto; /* Remover altura fixa */
-      min-height: 300px; /* Altura mínima para evitar colapso */
+      height: auto;
+      min-height: 300px;
     }
 
-    /* Remover alturas fixas específicas */
     .main-chart .chart-content,
     .secondary-chart .chart-content {
       height: auto !important;
     }
 
-    /* Altura responsiva para gráficos menores */
     @media (max-width: 768px) {
       .chart-content {
         min-height: 250px;
@@ -43,41 +41,125 @@
   </style>
 </head>
 <body>
-  <!-- ... (o restante do HTML permanece igual) ... -->
-
-  <script>
-    function loadCharts() {
-      // Remover cálculo de dimensões fixas
-      const scripts = [
-        'https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202405-202505',
-        'https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202405-202505',
-        'https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202405-202505'
-      ];
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-chart-bar"></i> Estatísticas de Mercado</h1>
+      <p class="subtitle">Dados atualizados sobre dispositivos móveis e sistemas operacionais no Brasil</p>
+    </header>
+    
+    <section class="stats-section">
+      <div class="chart-container main-chart">
+        <div class="chart-header">
+          <h2 class="chart-title">
+            <i class="fas fa-mobile-alt chart-icon"></i>
+            Fabricantes de Smartphones
+          </h2>
+        </div>
+        
+        <div class="chart-content">
+          <div class="chart-frame">
+            <div id="mobile_vendor-BR-monthly-202405-202505"></div>
+          </div>
+        </div>
+        
+        <span class="source-link">Fonte: <a href="https://gs.statcounter.com/vendor-market-share/mobile/brazil" target="_blank">StatCounter</a></span>
+      </div>
       
-      scripts.forEach(src => {
+      <div class="two-columns">
+        <div class="chart-container secondary-chart">
+          <div class="chart-header">
+            <h2 class="chart-title">
+              <i class="fas fa-laptop chart-icon"></i>
+              Plataformas
+            </h2>
+          </div>
+          
+          <div class="chart-content">
+            <div class="chart-frame">
+              <div id="desktop+mobile+tablet-comparison-BR-monthly-202405-202505"></div>
+            </div>
+          </div>
+          
+          <span class="source-link">Fonte: <a href="https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/brazil" target="_blank">StatCounter</a></span>
+        </div>
+        
+        <div class="chart-container secondary-chart">
+          <div class="chart-header">
+            <h2 class="chart-title">
+              <i class="fab fa-android chart-icon"></i>
+              Android
+            </h2>
+          </div>
+          
+          <div class="chart-content">
+            <div class="chart-frame">
+              <div id="mobile+tablet-android_version-BR-monthly-202405-202505"></div>
+            </div>
+          </div>
+          
+          <span class="source-link">Fonte: <a href="https://gs.statcounter.com/android-version-market-share/mobile-tablet/brazil" target="_blank">StatCounter</a></span>
+        </div>
+      </div>
+    </section>
+    
+    <footer>
+      <p>Dados atualizados mensalmente | Estatísticas fornecidas por StatCounter</p>
+    </footer>
+  </div>
+
+  <script type="text/javascript" src="https://www.statcounter.com/js/fusioncharts.js"></script>
+  <script>
+    // Função para carregar os gráficos com dimensões calculadas
+    function loadCharts() {
+      const charts = [
+        {
+          id: 'mobile_vendor-BR-monthly-202405-202505',
+          container: document.querySelector('.main-chart .chart-content')
+        },
+        {
+          id: 'desktop+mobile+tablet-comparison-BR-monthly-202405-202505',
+          container: document.querySelector('.two-columns > .secondary-chart:nth-child(1) .chart-content')
+        },
+        {
+          id: 'mobile+tablet-android_version-BR-monthly-202405-202505',
+          container: document.querySelector('.two-columns > .secondary-chart:nth-child(2) .chart-content')
+        }
+      ];
+
+      charts.forEach(chart => {
+        if (!chart.container) return;
+        
+        const width = Math.min(chart.container.clientWidth, 1000);
+        const height = Math.min(chart.container.clientHeight, 600);
+        
+        // Remover gráficos existentes
+        const existingElement = document.getElementById(chart.id);
+        if (existingElement) {
+          existingElement.innerHTML = '';
+        }
+        
+        // Criar novo script
         const script = document.createElement('script');
-        script.src = src;
+        script.src = `https://gs.statcounter.com/chart.php?${chart.id}&chartWidth=${width}&chartHeight=${height}`;
         document.body.appendChild(script);
       });
-      
-      adjustCharts(); // Ajustar imediatamente após carregar
     }
-    
+
+    // Função para ajustar os elementos dos gráficos
     function adjustCharts() {
-      const charts = [
+      const chartIds = [
         'mobile_vendor-BR-monthly-202405-202505',
         'desktop+mobile+tablet-comparison-BR-monthly-202405-202505',
         'mobile+tablet-android_version-BR-monthly-202405-202505'
       ];
-      
-      charts.forEach(id => {
+
+      chartIds.forEach(id => {
         const element = document.getElementById(id);
         if (element) {
-          // Preencher 100% do container pai
           element.style.width = '100%';
           element.style.height = '100%';
           
-          // Ajustar canvas interno (se existir)
+          // Ajustar canvas interno se existir
           const canvas = element.querySelector('canvas');
           if (canvas) {
             canvas.style.width = '100%';
@@ -86,16 +168,25 @@
         }
       });
     }
-    
+
+    // Debounce para otimizar o redimensionamento
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        loadCharts();
+        setTimeout(adjustCharts, 100);
+      }, 250);
+    });
+
+    // Carregar gráficos quando a página carregar
     window.addEventListener('DOMContentLoaded', () => {
       loadCharts();
-      // Ajustes mais frequentes para garantir renderização
+      
+      // Ajustes múltiplos para garantir renderização
       setTimeout(adjustCharts, 100);
       setTimeout(adjustCharts, 500);
-    });
-    
-    window.addEventListener('resize', () => {
-      setTimeout(adjustCharts, 100);
+      setTimeout(adjustCharts, 1000);
     });
   </script>
 </body>
