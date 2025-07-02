@@ -4,68 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estatísticas de Mercado - Brasil</title>
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Estilos globais */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
       background: #f8fafc;
       padding: 15px;
       min-height: 100vh;
     }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 10px;
-    }
-
-    /* Header */
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-      padding: 25px;
-      background: linear-gradient(135deg, #2c3e50, #1a2536);
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 8px;
-      color: white;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .subtitle {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.85);
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    footer {
-      text-align: center;
-      padding: 15px;
-      color: #7f8c8d;
-      font-size: 0.9rem;
-      margin-top: 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
+    
     /* Seção de gráficos */
     .stats-section {
       display: grid;
@@ -110,11 +57,9 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      background: #ffffff;
+      background: #f9fafb;
       border-radius: 8px;
       position: relative;
-      height: auto;
-      min-height: 300px;
     }
     
     .chart-frame {
@@ -150,16 +95,23 @@
       gap: 20px;
     }
     
-    /* Remover alturas fixas específicas */
-    .main-chart .chart-content,
+    /* Altura dos gráficos */
+    .main-chart .chart-content {
+      height: 380px;
+    }
+    
     .secondary-chart .chart-content {
-      height: auto !important;
+      height: 380px;
     }
     
     /* Responsividade */
     @media (max-width: 1200px) {
-      .chart-content {
-        min-height: 300px;
+      .main-chart .chart-content {
+        height: 350px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 350px;
       }
     }
     
@@ -167,33 +119,37 @@
       .two-columns {
         grid-template-columns: 1fr;
       }
+      
+      .main-chart .chart-content {
+        height: 380px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 380px;
+      }
     }
     
     @media (max-width: 768px) {
-      h1 {
-        font-size: 1.9rem;
-      }
-      
-      .subtitle {
-        font-size: 1rem;
-      }
-      
-      header {
-        padding: 20px 15px;
-      }
-      
       .chart-title {
         font-size: 1.2rem;
       }
       
-      .chart-content {
-        min-height: 250px;
+      .main-chart .chart-content {
+        height: 300px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 300px;
       }
     }
     
     @media (max-width: 576px) {
-      .chart-content {
-        min-height: 200px;
+      .main-chart .chart-content {
+        height: 250px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 250px;
       }
     }
   </style>
@@ -216,7 +172,7 @@
         
         <div class="chart-content">
           <div class="chart-frame">
-            <div id="mobile_vendor-BR-monthly-202405-202505"></div>
+            <div id="mobile_vendor-BR-monthly-202406-202506"></div>
           </div>
         </div>
         
@@ -234,7 +190,7 @@
           
           <div class="chart-content">
             <div class="chart-frame">
-              <div id="desktop+mobile+tablet-comparison-BR-monthly-202405-202505"></div>
+              <div id="desktop+mobile+tablet-comparison-BR-monthly-202406-202506"></div>
             </div>
           </div>
           
@@ -251,7 +207,7 @@
           
           <div class="chart-content">
             <div class="chart-frame">
-              <div id="mobile+tablet-android_version-BR-monthly-202405-202505"></div>
+              <div id="mobile+tablet-android_version-BR-monthly-202406-202506"></div>
             </div>
           </div>
           
@@ -267,84 +223,54 @@
 
   <script type="text/javascript" src="https://www.statcounter.com/js/fusioncharts.js"></script>
   <script>
-    // Função para carregar os gráficos com dimensões calculadas
     function loadCharts() {
-      const charts = [
-        {
-          id: 'mobile_vendor-BR-monthly-202405-202505',
-          container: document.querySelector('.main-chart .chart-content')
-        },
-        {
-          id: 'desktop+mobile+tablet-comparison-BR-monthly-202405-202505',
-          container: document.querySelector('.two-columns > .secondary-chart:nth-child(1) .chart-content')
-        },
-        {
-          id: 'mobile+tablet-android_version-BR-monthly-202405-202505',
-          container: document.querySelector('.two-columns > .secondary-chart:nth-child(2) .chart-content')
-        }
+      const mainChart = document.querySelector('.main-chart .chart-content');
+      const secondaryChart = document.querySelector('.secondary-chart .chart-content');
+      
+      const mainWidth = Math.min(mainChart.clientWidth, 1000);
+      const mainHeight = mainChart.clientHeight;
+      
+      const secWidth = Math.min(secondaryChart.clientWidth, 550);
+      const secHeight = secondaryChart.clientHeight;
+      
+      // Carregar gráficos
+      const scripts = [
+        `https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202406-202506&chartWidth=${mainWidth}&chartHeight=${mainHeight}`,
+        `https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202406-202506&chartWidth=${secWidth}&chartHeight=${secHeight}`,
+        `https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202406-202506&chartWidth=${secWidth}&chartHeight=${secHeight}`
       ];
-
-      charts.forEach(chart => {
-        if (!chart.container) return;
-        
-        const width = Math.min(chart.container.clientWidth, 1000);
-        const height = Math.min(chart.container.clientHeight, 600);
-        
-        // Remover gráficos existentes
-        const existingElement = document.getElementById(chart.id);
-        if (existingElement) {
-          existingElement.innerHTML = '';
-        }
-        
-        // Criar novo script
+      
+      scripts.forEach(src => {
         const script = document.createElement('script');
-        script.src = `https://gs.statcounter.com/chart.php?${chart.id}&chartWidth=${width}&chartHeight=${height}`;
+        script.src = src;
         document.body.appendChild(script);
       });
     }
-
-    // Função para ajustar os elementos dos gráficos
+    
     function adjustCharts() {
-      const chartIds = [
-        'mobile_vendor-BR-monthly-202405-202505',
-        'desktop+mobile+tablet-comparison-BR-monthly-202405-202505',
-        'mobile+tablet-android_version-BR-monthly-202405-202505'
+      const charts = [
+        'mobile_vendor-BR-monthly-202406-202506',
+        'desktop+mobile+tablet-comparison-BR-monthly-202406-202506',
+        'mobile+tablet-android_version-BR-monthly-202406-202506'
       ];
-
-      chartIds.forEach(id => {
+      
+      charts.forEach(id => {
         const element = document.getElementById(id);
         if (element) {
           element.style.width = '100%';
           element.style.height = '100%';
-          
-          // Ajustar canvas interno se existir
-          const canvas = element.querySelector('canvas');
-          if (canvas) {
-            canvas.style.width = '100%';
-            canvas.style.height = '100%';
-          }
         }
       });
     }
-
-    // Debounce para otimizar o redimensionamento
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        loadCharts();
-        setTimeout(adjustCharts, 100);
-      }, 250);
-    });
-
-    // Carregar gráficos quando a página carregar
+    
     window.addEventListener('DOMContentLoaded', () => {
       loadCharts();
-      
-      // Ajustes múltiplos para garantir renderização
-      setTimeout(adjustCharts, 100);
+      setTimeout(adjustCharts, 1500);
+    });
+    
+    window.addEventListener('resize', () => {
+      loadCharts();
       setTimeout(adjustCharts, 500);
-      setTimeout(adjustCharts, 1000);
     });
   </script>
 </body>
