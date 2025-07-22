@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ofertas Especiais</title>
+  <title>Special Offers</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
@@ -189,6 +189,25 @@
       gap: 5px;
     }
     
+    .back-button {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
+    }
+    
+    .back-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(52, 152, 219, 0.35);
+      background: linear-gradient(135deg, #2980b9, #2573a7);
+    }
+    
     /* Responsividade */
     @media (max-width: 768px) {
       .content-section {
@@ -204,29 +223,33 @@
 <body>
   <div class="container">
     <header>
-      <h1><i class="fas fa-percent"></i> Ofertas Especiais</h1>
-      <p class="subtitle">As melhores promoções de smartphones e acessórios</p>
+      <h1><i class="fas fa-percent"></i> Special Offers</h1>
+      <p class="subtitle">The best promotions on smartphones and accessories</p>
     </header>
     
-    <h2 class="section-title">Ofertas Disponíveis</h2>
+    <a href="index.html" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+    
+    <h2 class="section-title">Available Offers</h2>
     
     <div id="offers-container" class="content-section">
       <div class="loading">
         <i class="fas fa-spinner"></i>
-        <p>Carregando ofertas...</p>
+        <p>Loading offers...</p>
       </div>
     </div>
     
     <footer>
-      <p>Ofertas atualizadas diariamente | Desenvolvido com <i class="fas fa-heart" style="color: #e74c3c;"></i> para você</p>
+      <p>Offers updated daily | Developed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for you</p>
     </footer>
   </div>
 
   <script>
-    // URL da planilha de ofertas (SUBSTITUA PELA SUA URL)
+    // URL of the offers spreadsheet (REPLACE WITH YOUR URL)
     const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQQQwcE84wyqgyut6pu0pfKXDdQ5L4UC9lKKBoxBHi_N0gSuJd7JpGTx6uR3GGVB9SSPauMTrv0McIK/pub?gid=1799714852&single=true&output=csv";
     
-    // Lista de imagens padrão para usar quando nenhuma imagem é encontrada
+    // Default images to use when no image is found
     const DEFAULT_IMAGES = [
       "https://lsil14.github.io/lsil-14.github.io/Gemini_Generated_Image_4.png",
       "https://lsil14.github.io/lsil-14.github.io/Gemini_Generated_Image_4.png",
@@ -242,7 +265,7 @@
         .replace(/"/g, "&quot;");
     }
 
-    // Formatar URL para exibição
+    // Format URL for display
     function formatUrl(url) {
       try {
         const parsed = new URL(url);
@@ -252,31 +275,31 @@
       }
     }
 
-    // Buscar metadados de uma URL (incluindo imagem)
+    // Fetch URL metadata (including image)
     async function fetchUrlMetadata(url) {
       if (!url) return null;
       
       try {
-        // Usando a API de meta tags para obter metadados
+        // Using meta tags API to get metadata
         const response = await fetch(`https://jsonlink.io/api/extract?url=${encodeURIComponent(url)}`);
         const data = await response.json();
         return data;
       } catch (error) {
-        console.error('Erro ao buscar metadados:', error);
+        console.error('Error fetching metadata:', error);
         return null;
       }
     }
 
-    // Buscar e processar dados
+    // Fetch and process data
     async function loadOffers() {
       const container = document.getElementById('offers-container');
-      container.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i><p>Carregando ofertas...</p></div>';
+      container.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i><p>Loading offers...</p></div>';
       
       try {
-        // Adiciona timestamp para evitar cache
+        // Add timestamp to avoid cache
         const url = `${SPREADSHEET_URL}&t=${Date.now()}`;
         
-        // Parse do CSV
+        // Parse CSV
         const results = await new Promise((resolve, reject) => {
           Papa.parse(url, {
             download: true,
@@ -287,57 +310,57 @@
         });
         
         if (results.data.length === 0) {
-          container.innerHTML = '<div class="empty-message"><i class="fas fa-gift"></i><h3>Nenhuma oferta disponível</h3><p>Volte mais tarde para conferir nossas promoções</p></div>';
+          container.innerHTML = '<div class="empty-message"><i class="fas fa-gift"></i><h3>No offers available</h3><p>Check back later for our promotions</p></div>';
           return;
         }
         
-        // Processar cada oferta e buscar metadados
+        // Process each offer and fetch metadata
         container.innerHTML = '';
         const loadingIndicator = document.createElement('div');
         loadingIndicator.className = 'loading';
-        loadingIndicator.innerHTML = '<i class="fas fa-spinner"></i><p>Obtendo detalhes das ofertas...</p>';
+        loadingIndicator.innerHTML = '<i class="fas fa-spinner"></i><p>Getting offer details...</p>';
         container.appendChild(loadingIndicator);
         
         for (const row of results.data) {
           if (row.Título && row.Link) {
-            const titulo = safeText(row.Título);
+            const title = safeText(row.Título);
             const link = safeText(row.Link);
             const displayUrl = formatUrl(link);
-            const preco = safeText(row.Preço || '');
-            const descricao = safeText(row.Descrição || '');
+            const price = safeText(row.Preço || '');
+            const description = safeText(row.Descrição || '');
             
-            // Buscar metadados para esta oferta
+            // Fetch metadata for this offer
             const metadata = await fetchUrlMetadata(link);
             
-            // Determinar a imagem a ser usada
+            // Determine which image to use
             let imageUrl = row.Imagem || 
                           (metadata && metadata.images && metadata.images.length > 0 ? metadata.images[0] : null);
             
-            // Se não encontrou imagem, usa uma padrão aleatória
+            // If no image found, use a random default
             if (!imageUrl) {
               imageUrl = DEFAULT_IMAGES[Math.floor(Math.random() * DEFAULT_IMAGES.length)];
             }
             
-            // Usar descrição dos metadados se não houver descrição
-            const finalDescription = descricao || 
-                                    (metadata && metadata.description ? metadata.description : 'Confira esta oferta exclusiva!');
+            // Use metadata description if no description provided
+            const finalDescription = description || 
+                                    (metadata && metadata.description ? metadata.description : 'Check out this exclusive offer!');
             
-            // Criar o card de oferta
+            // Create offer card
             const offerCard = document.createElement('div');
             offerCard.className = 'offer-card';
             
             offerCard.innerHTML = `
               <div class="offer-image">
                 ${imageUrl ? 
-                  `<img src="${imageUrl}" alt="${titulo}" loading="lazy">` : 
+                  `<img src="${imageUrl}" alt="${title}" loading="lazy">` : 
                   `<div class="default-offer-image"><i class="fas fa-shopping-bag"></i></div>`
                 }
               </div>
               <div class="offer-content">
-                <h3 class="offer-title"><a href="${link}" target="_blank">${titulo}</a></h3>
-                ${preco ? `<div class="offer-price">${preco}</div>` : ''}
+                <h3 class="offer-title"><a href="${link}" target="_blank">${title}</a></h3>
+                ${price ? `<div class="offer-price">${price}</div>` : ''}
                 <p class="offer-description">${finalDescription}</p>
-                <a href="${link}" target="_blank" class="offer-link">Ver Oferta</a>
+                <a href="${link}" target="_blank" class="offer-link">View Offer</a>
                 <div class="source-info">
                   <i class="fas fa-external-link-alt"></i>
                   <span>${displayUrl}</span>
@@ -349,23 +372,23 @@
           }
         }
         
-        // Remove o indicador de carregamento
+        // Remove loading indicator
         loadingIndicator.remove();
         
       } catch (error) {
-        console.error("Erro ao carregar ofertas:", error);
+        console.error("Error loading offers:", error);
         container.innerHTML = `
           <div class="error-message">
             <i class="fas fa-exclamation-triangle"></i>
-            <h3>Erro ao carregar ofertas</h3>
-            <p>Por favor, tente recarregar a página</p>
+            <h3>Error loading offers</h3>
+            <p>Please try reloading the page</p>
             <p><small>${error.message}</small></p>
           </div>
         `;
       }
     }
 
-    // Carregar ofertas ao iniciar
+    // Load offers on startup
     window.addEventListener('DOMContentLoaded', loadOffers);
   </script>
 </body>
