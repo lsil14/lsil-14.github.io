@@ -152,6 +152,24 @@
         height: 250px;
       }
     }
+	    .back-button {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
+    }
+    
+    .back-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(52, 152, 219, 0.35);
+      background: linear-gradient(135deg, #2980b9, #2573a7);
+    }
   </style>
 </head>
 <body>
@@ -160,7 +178,9 @@
       <h1><i class="fas fa-chart-bar"></i> Market Statistics</h1>
       <p class="subtitle">Data updated monthly | Statistics provided by StatCounter</p>
     </header>
-    
+        <a href="index.html" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
     <section class="stats-section">
       <div class="chart-container main-chart">
         <div class="chart-header">
