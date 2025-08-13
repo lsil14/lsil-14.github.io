@@ -4,20 +4,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Market Statistics - Brasil</title>
-  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       background: #f8fafc;
       padding: 15px;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     
-    /* Seção de gráficos */
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      text-align: center;
+      padding: 20px 0;
+      margin-bottom: 20px;
+    }
+    
+    header h1 {
+      font-size: 2.2rem;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    header .subtitle {
+      color: #718096;
+      font-size: 1.1rem;
+    }
+    
+    /* MODIFICAÇÃO PRINCIPAL */
     .stats-section {
       display: grid;
       grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto; /* Linha principal flexível, secundários automáticos */
       gap: 20px;
+      flex: 1; /* Ocupa todo o espaço disponível */
       margin-bottom: 25px;
     }
     
@@ -52,7 +82,7 @@
     }
     
     .chart-content {
-      flex: 1;
+      flex: 1; /* Expande para ocupar o espaço disponível */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -60,6 +90,7 @@
       background: #f9fafb;
       border-radius: 8px;
       position: relative;
+      min-height: 300px; /* Altura mínima para evitar gráficos muito pequenos */
     }
     
     .chart-frame {
@@ -93,22 +124,25 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
+      height: 100%;
     }
     
-    /* Altura dos gráficos */
+    /* REMOÇÃO DAS ALTURAS FIXAS */
+    /* Altura dos gráficos - agora flexível */
     .main-chart .chart-content {
-      height: 380px;
-      width: 100%; /* Make it full width */
+      width: 100%;
       padding: 0;
       margin: 0;
     }
+    
     .main-chart .chart-frame,
-    #mobile_vendor-BR-monthly-202406-202506 {
+    #mobile_vendor-BR-monthly-202407-202507 {
       width: 100%;
       height: 100%;
       min-height: 0;
       min-width: 0;
     }
+    
     .main-chart {
       width: 100%;
       min-width: 0;
@@ -120,10 +154,6 @@
     
     /* Responsividade */
     @media (max-width: 1200px) {
-      .main-chart .chart-content {
-        height: 350px;
-      }
-      
       .secondary-chart .chart-content {
         height: 350px;
       }
@@ -132,10 +162,6 @@
     @media (max-width: 992px) {
       .two-columns {
         grid-template-columns: 1fr;
-      }
-      
-      .main-chart .chart-content {
-        height: 380px;
       }
       
       .secondary-chart .chart-content {
@@ -148,27 +174,22 @@
         font-size: 1.2rem;
       }
       
-      .main-chart .chart-content {
-        height: 300px;
-      }
-      
       .secondary-chart .chart-content {
         height: 300px;
       }
     }
     
     @media (max-width: 576px) {
-      .main-chart .chart-content {
-        height: 250px;
-      }
-      
       .secondary-chart .chart-content {
         height: 250px;
       }
     }
-	    .back-button {
-      display: inline-block;
-      margin: 20px 0;
+    
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 20px;
       padding: 10px 20px;
       background: linear-gradient(135deg, #3498db, #2980b9);
       color: white;
@@ -177,6 +198,7 @@
       font-weight: 500;
       transition: all 0.3s ease;
       box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
+      max-width: 150px;
     }
     
     .back-button:hover {
@@ -184,17 +206,28 @@
       box-shadow: 0 6px 18px rgba(52, 152, 219, 0.35);
       background: linear-gradient(135deg, #2980b9, #2573a7);
     }
+    
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      color: #718096;
+      font-size: 0.9rem;
+      border-top: 1px solid #e2e8f0;
+      margin-top: auto;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1> <i class="fas fa-chart-bar"></i> Market Statistics</h1>
+      <h1><i class="fas fa-chart-bar"></i> Market Statistics</h1>
       <p class="subtitle">Data updated monthly | Statistics provided by StatCounter</p>
     </header>
-              <a href="index.html" class="back-button">
+    
+    <a href="index.html" class="back-button">
       <i class="fas fa-arrow-left"></i> Back to Home
     </a>
+    
     <section class="stats-section">
       <div class="chart-container main-chart">
         <div class="chart-header">
@@ -251,33 +284,39 @@
     </section>
     
     <footer>
-      <p>Developed by  <img src="https://lsil14.github.io/lsil-14.github.io/TCL_SMARTPHONES.png" alt="LOGO" style="height: 18px; vertical-align: middle;"></p>
+      <p>Developed by <img src="https://lsil14.github.io/lsil-14.github.io/TCL_SMARTPHONES.png" alt="LOGO" style="height: 18px; vertical-align: middle;"></p>
     </footer>
   </div>
 
   <script type="text/javascript" src="https://www.statcounter.com/js/fusioncharts.js"></script>
   <script>
     function loadCharts() {
-      // Always use the full box for first chart
+      // Sempre usar a caixa inteira para o primeiro gráfico
       const mainChart = document.querySelector('.main-chart .chart-content');
-      const secondaryChart = document.querySelector('.secondary-chart .chart-content');
+      const secondaryCharts = document.querySelectorAll('.secondary-chart .chart-content');
       
       const mainWidth = mainChart.clientWidth;
       const mainHeight = mainChart.clientHeight;
       
-      const secWidth = Math.min(secondaryChart.clientWidth, 550);
-      const secHeight = secondaryChart.clientHeight;
+      // Carregar gráfico principal
+      const mainScript = document.createElement('script');
+      mainScript.src = `https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202407-202507&chartWidth=${mainWidth}&chartHeight=${mainHeight}`;
+      document.body.appendChild(mainScript);
       
-      // Carregar gráficos
-      const scripts = [
-        `https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202407-202507&chartWidth=${mainWidth}&chartHeight=${mainHeight}`,
-        `https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202407-202507&chartWidth=${secWidth}&chartHeight=${secHeight}`,
-        `https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202407-202507&chartWidth=${secWidth}&chartHeight=${secHeight}`
-      ];
-      
-      scripts.forEach(src => {
+      // Carregar gráficos secundários
+      secondaryCharts.forEach((chart, index) => {
+        const secWidth = Math.min(chart.clientWidth, 550);
+        const secHeight = chart.clientHeight;
+        
+        let chartId;
+        if (index === 0) {
+          chartId = 'desktop+mobile+tablet-comparison-BR-monthly-202407-202507';
+        } else {
+          chartId = 'mobile+tablet-android_version-BR-monthly-202407-202507';
+        }
+        
         const script = document.createElement('script');
-        script.src = src;
+        script.src = `https://gs.statcounter.com/chart.php?${chartId}&chartWidth=${secWidth}&chartHeight=${secHeight}`;
         document.body.appendChild(script);
       });
     }
@@ -294,6 +333,7 @@
         if (element) {
           element.style.width = '100%';
           element.style.height = '100%';
+          element.style.minHeight = '250px'; // Garante altura mínima
         }
       });
     }
