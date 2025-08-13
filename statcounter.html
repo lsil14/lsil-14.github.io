@@ -4,82 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Market Statistics - Brasil</title>
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
     body {
       background: #f8fafc;
       padding: 15px;
       min-height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      max-width: 1400px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    
-    header {
-      text-align: center;
-      padding: 20px 0;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    
-    header h1 {
-      font-size: 2.2rem;
-      color: #2c3e50;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    
-    header .subtitle {
-      color: #718096;
-      font-size: 1.1rem;
-    }
-    
-    .back-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 20px;
-      padding: 10px 20px;
-      background: linear-gradient(135deg, #3498db, #2980b9);
-      color: white;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
-      max-width: 150px;
-    }
-    
-    .back-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 18px rgba(52, 152, 219, 0.35);
-      background: linear-gradient(135deg, #2980b9, #2573a7);
     }
     
     /* Seção de gráficos */
     .stats-section {
-      flex: 1;
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: 1fr auto;
       gap: 20px;
       margin-bottom: 25px;
     }
@@ -92,12 +29,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .chart-container:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      height: 100%;
     }
     
     .chart-header {
@@ -116,18 +48,7 @@
     
     .chart-icon {
       font-size: 1.3rem;
-    }
-    
-    .mobile-icon {
       color: #3498db;
-    }
-    
-    .platform-icon {
-      color: #9b59b6;
-    }
-    
-    .android-icon {
-      color: #27ae60;
     }
     
     .chart-content {
@@ -139,7 +60,6 @@
       background: #f9fafb;
       border-radius: 8px;
       position: relative;
-      min-height: 300px;
     }
     
     .chart-frame {
@@ -148,7 +68,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 10px;
     }
     
     .source-link {
@@ -157,14 +76,12 @@
       font-size: 0.85rem;
       color: #7f8c8d;
       margin-top: 12px;
-      font-style: italic;
     }
     
     .source-link a {
       color: #3498db;
       text-decoration: none;
       transition: all 0.3s;
-      font-weight: 500;
     }
     
     .source-link a:hover {
@@ -176,13 +93,39 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
+    }
+    
+    /* Altura dos gráficos */
+    .main-chart .chart-content {
+      height: 380px;
+      width: 100%; /* Make it full width */
+      padding: 0;
+      margin: 0;
+    }
+    .main-chart .chart-frame,
+    #mobile_vendor-BR-monthly-202406-202506 {
+      width: 100%;
       height: 100%;
+      min-height: 0;
+      min-width: 0;
+    }
+    .main-chart {
+      width: 100%;
+      min-width: 0;
+    }
+    
+    .secondary-chart .chart-content {
+      height: 380px;
     }
     
     /* Responsividade */
     @media (max-width: 1200px) {
-      .container {
-        max-width: 95%;
+      .main-chart .chart-content {
+        height: 350px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 350px;
       }
     }
     
@@ -191,216 +134,150 @@
         grid-template-columns: 1fr;
       }
       
-      .stats-section {
-        grid-template-rows: 1fr auto;
+      .main-chart .chart-content {
+        height: 380px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 380px;
       }
     }
     
     @media (max-width: 768px) {
-      header h1 {
-        font-size: 1.8rem;
-      }
-      
       .chart-title {
         font-size: 1.2rem;
       }
       
-      .source-link {
-        font-size: 0.8rem;
+      .main-chart .chart-content {
+        height: 300px;
+      }
+      
+      .secondary-chart .chart-content {
+        height: 300px;
       }
     }
     
     @media (max-width: 576px) {
-      body {
-        padding: 10px;
+      .main-chart .chart-content {
+        height: 250px;
       }
       
-      header {
-        padding: 15px 0;
-      }
-      
-      header h1 {
-        font-size: 1.6rem;
-      }
-      
-      header .subtitle {
-        font-size: 0.95rem;
-      }
-      
-      .chart-container {
-        padding: 12px;
-      }
-      
-      .back-button {
-        padding: 8px 16px;
-        font-size: 0.9rem;
+      .secondary-chart .chart-content {
+        height: 250px;
       }
     }
-    
-    footer {
-      text-align: center;
-      padding: 20px 0;
-      color: #718096;
-      font-size: 0.9rem;
-      border-top: 1px solid #e2e8f0;
-      margin-top: auto;
+	    .back-button {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
     }
     
-    /* Placeholder para os gráficos */
-    .chart-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      padding: 20px;
-      text-align: center;
-      color: #4a5568;
-    }
-    
-    .chart-placeholder i {
-      font-size: 3rem;
-      margin-bottom: 15px;
-      opacity: 0.7;
-    }
-    
-    .chart-placeholder h3 {
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-    }
-    
-    .chart-placeholder p {
-      font-size: 0.9rem;
-      max-width: 350px;
-    }
-    
-    .loader {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #3498db;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .back-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(52, 152, 219, 0.35);
+      background: linear-gradient(135deg, #2980b9, #2573a7);
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1><i class="fas fa-chart-bar"></i> Market Statistics</h1>
+      <h1> <i class="fas fa-chart-bar"></i> Market Statistics</h1>
       <p class="subtitle">Data updated monthly | Statistics provided by StatCounter</p>
     </header>
-    
-    <a href="index.html" class="back-button">
+              <a href="index.html" class="back-button">
       <i class="fas fa-arrow-left"></i> Back to Home
     </a>
-    
     <section class="stats-section">
       <div class="chart-container main-chart">
         <div class="chart-header">
           <h2 class="chart-title">
-            <i class="fas fa-mobile-alt chart-icon mobile-icon"></i>
+            <i class="fas fa-mobile-alt chart-icon"></i>
             Market Share
           </h2>
         </div>
         
         <div class="chart-content">
           <div class="chart-frame">
-            <div id="mobile_vendor-BR-monthly-202407-202507" class="chart-placeholder">
-              <div class="loader"></div>
-              <h3>Loading Market Share Data...</h3>
-              <p>Market share of smartphone manufacturers in Brazil</p>
-            </div>
+            <div id="mobile_vendor-BR-monthly-202407-202507"></div>
           </div>
         </div>
         
-        <span class="source-link">Source: <a href="https://gs.statcounter.com/vendor-market-share/mobile/brazil" target="_blank">StatCounter</a></span>
+        <span class="source-link">Fonte: <a href="https://gs.statcounter.com/vendor-market-share/mobile/brazil" target="_blank">StatCounter</a></span>
       </div>
       
       <div class="two-columns">
         <div class="chart-container secondary-chart">
           <div class="chart-header">
             <h2 class="chart-title">
-              <i class="fas fa-laptop chart-icon platform-icon"></i>
+              <i class="fas fa-laptop chart-icon"></i>
               Desktop/Mobile/Tablet
             </h2>
           </div>
           
           <div class="chart-content">
             <div class="chart-frame">
-              <div id="desktop+mobile+tablet-comparison-BR-monthly-202407-202507" class="chart-placeholder">
-                <div class="loader"></div>
-                <h3>Loading Platform Data...</h3>
-                <p>Comparison of desktop, mobile and tablet usage</p>
-              </div>
+              <div id="desktop+mobile+tablet-comparison-BR-monthly-202407-202507"></div>
             </div>
           </div>
           
-          <span class="source-link">Source: <a href="https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/brazil" target="_blank">StatCounter</a></span>
+          <span class="source-link">Fonte: <a href="https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/brazil" target="_blank">StatCounter</a></span>
         </div>
         
         <div class="chart-container secondary-chart">
           <div class="chart-header">
             <h2 class="chart-title">
-              <i class="fab fa-android chart-icon android-icon"></i>
+              <i class="fab fa-android chart-icon"></i>
               Android
             </h2>
           </div>
           
           <div class="chart-content">
             <div class="chart-frame">
-              <div id="mobile+tablet-android_version-BR-monthly-202407-202507" class="chart-placeholder">
-                <div class="loader"></div>
-                <h3>Loading Android Data...</h3>
-                <p>Distribution of Android versions in Brazil</p>
-              </div>
+              <div id="mobile+tablet-android_version-BR-monthly-202407-202507"></div>
             </div>
           </div>
           
-          <span class="source-link">Source: <a href="https://gs.statcounter.com/android-version-market-share/mobile-tablet/brazil" target="_blank">StatCounter</a></span>
+          <span class="source-link">Fonte: <a href="https://gs.statcounter.com/android-version-market-share/mobile-tablet/brazil" target="_blank">StatCounter</a></span>
         </div>
       </div>
     </section>
     
     <footer>
-      <p>Developed by <img src="https://lsil14.github.io/lsil-14.github.io/TCL_SMARTPHONES.png" alt="LOGO" style="height: 18px; vertical-align: middle;"></p>
+      <p>Developed by  <img src="https://lsil14.github.io/lsil-14.github.io/TCL_SMARTPHONES.png" alt="LOGO" style="height: 18px; vertical-align: middle;"></p>
     </footer>
   </div>
 
   <script type="text/javascript" src="https://www.statcounter.com/js/fusioncharts.js"></script>
   <script>
     function loadCharts() {
+      // Always use the full box for first chart
       const mainChart = document.querySelector('.main-chart .chart-content');
-      const secondaryCharts = document.querySelectorAll('.secondary-chart .chart-content');
+      const secondaryChart = document.querySelector('.secondary-chart .chart-content');
       
       const mainWidth = mainChart.clientWidth;
       const mainHeight = mainChart.clientHeight;
       
-      // Carregar gráfico principal
-      const mainScript = document.createElement('script');
-      mainScript.src = `https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202407-202507&chartWidth=${mainWidth}&chartHeight=${mainHeight}`;
-      document.body.appendChild(mainScript);
+      const secWidth = Math.min(secondaryChart.clientWidth, 550);
+      const secHeight = secondaryChart.clientHeight;
       
-      // Carregar gráficos secundários
-      secondaryCharts.forEach((chart, index) => {
-        const secWidth = Math.min(chart.clientWidth, 550);
-        const secHeight = chart.clientHeight;
-        
-        let chartId;
-        if (index === 0) {
-          chartId = 'desktop+mobile+tablet-comparison-BR-monthly-202407-202507';
-        } else {
-          chartId = 'mobile+tablet-android_version-BR-monthly-202407-202507';
-        }
-        
+      // Carregar gráficos
+      const scripts = [
+        `https://gs.statcounter.com/chart.php?mobile_vendor-BR-monthly-202407-202507&chartWidth=${mainWidth}&chartHeight=${mainHeight}`,
+        `https://gs.statcounter.com/chart.php?desktop+mobile+tablet-comparison-BR-monthly-202407-202507&chartWidth=${secWidth}&chartHeight=${secHeight}`,
+        `https://gs.statcounter.com/chart.php?mobile+tablet-android_version-BR-monthly-202407-202507&chartWidth=${secWidth}&chartHeight=${secHeight}`
+      ];
+      
+      scripts.forEach(src => {
         const script = document.createElement('script');
-        script.src = `https://gs.statcounter.com/chart.php?${chartId}&chartWidth=${secWidth}&chartHeight=${secHeight}`;
+        script.src = src;
         document.body.appendChild(script);
       });
     }
@@ -417,17 +294,13 @@
         if (element) {
           element.style.width = '100%';
           element.style.height = '100%';
-          element.style.minHeight = '250px';
         }
       });
     }
     
     window.addEventListener('DOMContentLoaded', () => {
-      // Simular atraso de carregamento para demonstração
-      setTimeout(() => {
-        loadCharts();
-        setTimeout(adjustCharts, 1000);
-      }, 1500);
+      loadCharts();
+      setTimeout(adjustCharts, 1500);
     });
     
     window.addEventListener('resize', () => {
